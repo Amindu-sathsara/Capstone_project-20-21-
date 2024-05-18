@@ -1,0 +1,153 @@
+.upside{
+    background-color: rgb(4, 147, 40);
+    height: 354px;
+    margin-top: 0;
+    max-width: 100%;
+}
+#title{
+    font-size:  70px;
+    position: absolute;
+    margin-left: 301px;
+    margin-top: 70px;
+    color: rgb(237, 241, 245);
+} 
+
+.img{
+    height: 350px;
+    width: 50%;
+    margin-left: 390px;
+    background-size: cover;
+    opacity: 0.3;
+    
+}
+
+#create{
+    position: absolute;
+    margin-left: 450px;
+    margin-top: 260px;
+    font-size: 30px;
+    background-color: rgb(245, 248, 250);
+    border-radius: 9px;
+    text-decoration-color: black;
+    width: 270px;
+    height: 56px;
+}
+
+#change{
+    position: absolute;
+    padding: 5px 20px;
+    margin-left: 795px;
+    margin-top: 260px;
+    font-size: 25px;
+    border-radius: 9px;
+    width: 270px;
+    height: 56px;
+    background-color: rgb(9, 108, 22);
+    color: rgb(234, 246, 246);
+    margin-right: auto;
+    
+}
+
+.second{
+    
+    background-image: linear-gradient(rgb(79, 178, 223),white);
+    height: 430px;
+    
+}
+
+#h1{
+    margin-left: 50px;
+    font-size: 54px;
+    position: absolute;
+    margin-top: 39px;
+    font-family:'Times New Roman', Times, serif;
+}
+
+.new{
+    height: 340px;
+    width: 360px;
+    margin-left: 970px;
+    margin-top: 40px;
+    position: absolute;
+}
+
+#h3{
+    position: absolute;
+   margin-top: 160px;
+   margin-left: 70px;
+   font-size: 26px;
+   font-family: Serif;
+}
+
+#parent{
+    position: absolute;
+    padding: 10px 20px;
+    margin-top: 250px;
+    margin-left: 60px;
+    font-size: 24px;
+    background-color: rgb(12, 215, 97);
+    border-radius: 9px;
+    text-decoration-color: black;
+    width: 270px;
+    height: 56px;
+    
+}
+
+#health{
+    position: absolute;
+    padding: 10px 20px;
+    margin-left: 450px;
+    margin-top: 250px;
+    font-size: 20px;
+    background-color: rgb(12, 215, 97);
+    border-radius: 9px;
+    text-decoration-color: black;
+    width: 270px;
+    height: 56px;
+}
+
+.third{
+    
+   
+    height: 460px;
+    
+}
+
+.form{
+   padding: 15px 15px;
+}
+
+.mb-3{
+
+    position: relative;
+    font-size: 19px;
+    margin-left: 150px;
+}
+
+#bcreate{
+    margin-left: 150px;
+}
+.sign{
+    height: 450px;
+  
+    background-image: linear-gradient(rgb(79, 178, 223),white);
+}
+
+.fourth{
+    height: 630px;
+    
+    background-image: linear-gradient(rgb(79, 178, 223),white);
+}
+.Hsign{
+    padding: 10px 30px;
+}
+
+.smallButton {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.largeButton {
+    font-size: 16px;
+    padding: 10px 20px;
+}

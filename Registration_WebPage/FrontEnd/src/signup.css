@@ -1,0 +1,55 @@
+
+.text{
+    text-align: center;
+}
+.cover{
+   width: 70%;
+    height: 50%;
+    margin-left: 15%;
+    border-radius: 30px;
+
+}
+  
+
+.buton{
+width: 190px;
+background-color: rgb(11, 163, 84);
+height: 50px;
+border-radius: 10px;
+margin-top: 40px;
+padding-bottom: 10px 20px;
+font-size: 19px;
+border-width:10px;
+border-color: rgb(5, 154, 50);
+}
+.Button{
+    padding: 10px 20px;
+   margin-left: 30%;
+}
+.ftext{
+    font-size: 19px;
+    padding: 10px 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(15, 15, 15);
+    position: relative;
+}
+.fbox{
+    position: relative;
+    width: 60%;
+    background-color: rgb(220, 213, 202);
+
+}
+#n{
+    margin-left: 13px;
+}
+#N{
+    margin-left: 45px;
+}
+#E{
+    margin-left: 53px;
+}
+#S{
+    margin-left: 10px;
+}
+
+
