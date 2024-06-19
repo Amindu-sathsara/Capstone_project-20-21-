@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './signup.css'
 import axios from 'axios';
+import '../components/button/button.css'
 
 export default function Signup() {
 
@@ -92,11 +93,11 @@ if (Object.keys(errors).length === 0) {
            </select>
            {errors.userType && <span className='error'>{errors.userType}</span>}
            <br/>
-
-        <div className='Button' >
-         <button type='submit' className='buton'>Create</button>
-        </div>
        </form>
+       <div className='Button'>
+          <button type='submit' className='buton' onClick={handleSubmit}>See Details</button>
+       </div>
+
       </div> 
     </div>
   );

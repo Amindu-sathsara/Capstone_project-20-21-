@@ -1,36 +1,18 @@
-.upside{
-    background-color: rgb(4, 147, 40);
-    height: 354px;
-    margin-top: 0;
-    max-width: 100%;
-}
-#title{
-    font-size:  70px;
-    position: absolute;
-    margin-left: 301px;
-    margin-top: 70px;
-    color: rgb(237, 241, 245);
-} 
-
-.img{
-    height: 350px;
-    width: 50%;
-    margin-left: 390px;
-    background-size: cover;
-    opacity: 0.3;
-    
-}
-
 #create{
     position: absolute;
     margin-left: 450px;
     margin-top: 260px;
     font-size: 30px;
+    font-weight: 900;
     background-color: rgb(245, 248, 250);
     border-radius: 9px;
     text-decoration-color: black;
     width: 270px;
     height: 56px;
+}
+#create:active{
+    width: 275px;
+    height: 60px;
 }
 
 #change{
@@ -39,6 +21,7 @@
     margin-left: 795px;
     margin-top: 260px;
     font-size: 25px;
+    font-weight: 600;
     border-radius: 9px;
     width: 270px;
     height: 56px;
@@ -52,7 +35,7 @@
     
     background-image: linear-gradient(rgb(79, 178, 223),white);
     height: 430px;
-    
+    width: 100%;
 }
 
 #h1{
@@ -106,12 +89,7 @@
     height: 56px;
 }
 
-.third{
-    
-   
-    height: 460px;
-    
-}
+
 
 .form{
    padding: 15px 15px;
@@ -127,11 +105,7 @@
 #bcreate{
     margin-left: 150px;
 }
-.sign{
-    height: 450px;
-  
-    background-image: linear-gradient(rgb(79, 178, 223),white);
-}
+
 
 .fourth{
     height: 630px;

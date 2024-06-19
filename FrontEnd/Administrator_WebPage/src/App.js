@@ -1,14 +1,15 @@
-import Home from "./Home";
+import ChangeP from './pages/changePermission/ChangeP'
+import Home from './pages/home/Home';
 
 
 function App() {
 
   return (
-    <div className="App">
-       <Home/>
-      
-  
-    </div>
+
+    <div>
+      <ChangeP/>
+    </div>    
+    
   );
 }
 

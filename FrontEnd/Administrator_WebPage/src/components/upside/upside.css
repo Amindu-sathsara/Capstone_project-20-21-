@@ -1,0 +1,22 @@
+.upside{
+    background-color: rgb(4, 147, 40);
+    height: 351px;
+    margin-top: 0;
+    width: 100%;
+}
+#title{
+    font-size:  70px;
+    position: absolute;
+    margin-left: 20%;
+    margin-top: 70px;
+    color: rgb(237, 241, 245);
+} 
+
+.img{
+    height: 350px;
+    width: 50%;
+    margin-left: 390px;
+    background-size: cover;
+    opacity: 0.3;
+    
+}
