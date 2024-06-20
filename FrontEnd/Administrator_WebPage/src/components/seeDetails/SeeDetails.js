@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../signup.css'
+import '../create/signup.css'
 import '../button/button.css'
 
 export default function SeeDetails() {

@@ -1,11 +1,10 @@
 import React from 'react';
-import SeeDetails from '../../components/seeDetailsForm/SeeDetails';
-import '../../components/signup.css'
+import SeeDetails from '../../components/seeDetails/SeeDetails';
 
 export default function GetDetails() {
   return (
     <div className='third'>
-    <br/>
+    <br/><br/><br/>
     <div className='sign'><SeeDetails/>
     </div>          
    </div>

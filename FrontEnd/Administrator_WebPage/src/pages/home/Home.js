@@ -1,18 +1,29 @@
 import React from 'react'
 import "../home/home.css"
 import Upside from '../../components/upside/Upside';
+import { useNavigate } from 'react-router-dom';
 
 export default function Home() {
+
+  const navigate = useNavigate();
+
+  const goToForm = () =>{
+    navigate('/form');
+  };
+
+  const goToChangeP = () =>{
+    navigate('/changeP');
+  };
 
   return (
 
     <div>
 
     <div>
-    
-        <button id='create'>Create Account</button>
-        <button id='change'>Change Permission</button>
-        <Upside title='KidsCare Account Management'/>
+    <Upside title='KidsCare Account Management'/>
+        <button id='create' onClick={goToForm}>Create Account</button>
+        <button id='change' onClick={goToChangeP}>Change Permission</button>
+       
       </div> 
      <div className='second'>
        <h1 id='h1'>Creating New User Account</h1>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './signup.css'
 import axios from 'axios';
-import '../components/button/button.css'
+import '../button/button.css'
 
 export default function Signup() {
 
@@ -61,7 +61,6 @@ if (Object.keys(errors).length === 0) {
     <div className='container'>
      <div className='cover'>
        <form className='box' onSubmit={handleSubmit}>
-        <br/><h3 className='text'>Create account For Users</h3><br/>
         
           <label className='ftext' htmlFor='name'>Full Name :</label>
           <input className='fbox'id='n'type='text' placeholder='Enter Full Name' value={fullName} onChange={(e) => setFullName(e.target.value)} />
@@ -95,7 +94,7 @@ if (Object.keys(errors).length === 0) {
            <br/>
        </form>
        <div className='Button'>
-          <button type='submit' className='buton' onClick={handleSubmit}>See Details</button>
+          <button type='submit' className='buton' onClick={handleSubmit}>Create</button>
        </div>
 
       </div> 

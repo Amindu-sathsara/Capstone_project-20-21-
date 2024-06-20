@@ -1,7 +1,7 @@
 #create{
     position: absolute;
     margin-left: 450px;
-    margin-top: 260px;
+    margin-top: -130px;
     font-size: 30px;
     font-weight: 900;
     background-color: rgb(245, 248, 250);
@@ -9,28 +9,36 @@
     text-decoration-color: black;
     width: 270px;
     height: 56px;
+    opacity: 0.9;
 }
 #create:active{
     width: 275px;
     height: 60px;
+    background-color: rgb(124, 225, 245);
 }
 
 #change{
     position: absolute;
     padding: 5px 20px;
     margin-left: 795px;
-    margin-top: 260px;
+    margin-top:-130px;
     font-size: 25px;
     font-weight: 600;
     border-radius: 9px;
     width: 270px;
     height: 56px;
-    background-color: rgb(9, 108, 22);
+    background-color: rgb(18, 118, 3);
     color: rgb(234, 246, 246);
     margin-right: auto;
+    opacity: 0.9;
     
 }
 
+#change:active{
+    width: 275px;
+    height: 60px;
+    background-color: black;
+}
 .second{
     
     background-image: linear-gradient(rgb(79, 178, 223),white);
