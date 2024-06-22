@@ -1,0 +1,12 @@
+
+.view{
+    background-image: linear-gradient(rgb(79, 178, 223),white);
+    height: 370px;
+}
+.getbox{
+    margin-left: 35%;
+}
+.deletebox{
+    margin-left: 70%;
+}
+
