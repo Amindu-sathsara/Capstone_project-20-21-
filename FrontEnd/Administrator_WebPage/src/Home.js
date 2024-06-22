@@ -1,6 +1,7 @@
 import React from 'react'
 import "./home.css"
 import Signup from './Signup'
+import ChildProfile from './ChildProfile';
 
 
 
@@ -9,34 +10,40 @@ export default function Home() {
   
   return (
 
+    <>
     <div className='upside'>
   
-       <h1 id='title'>KidsCare Account Management</h1>
-       
-        <button id='create' >Create Account</button>
-        <button id='change'>Change Permission</button>
+  <h1 id='title'>KidsCare Account Management</h1>
+  
+   <button id='create' >Create Account</button>
+   <button id='change'>Change Permission</button>
 
-        <div className='upsidecenter'>
-          <img src="\webpage healthcare.jpg" alt='upimage' className='img'/>
-        </div>
-       
-     <div className='second'>
-       <h1 id='h1'>Creating New User Account</h1>
-       <img src="\TR_Healthcare-Medical-Trends_Feature.webp" alt='secondimage' className='new'/>
-       <h3 id='h3'>Create account for</h3>
-         
-       <button id='parent' >Parent</button>
+   <div className='upsidecenter'>
+     <img src="\webpage healthcare.jpg" alt='upimage' className='img'/>
+   </div>
+  
+<div className='second'>
+  <h1 id='h1'>Creating New User Account</h1>
+  <img src="\TR_Healthcare-Medical-Trends_Feature.webp" alt='secondimage' className='new'/>
+  <h3 id='h3'>Create account for</h3>
     
-      
-       <button id='health' >HealthCare Professional</button>
-    
-     </div>
+  <button id='parent' >Parent</button>
 
-     <div className='third'>
-     <br/>
-     <div className='sign'><Signup/></div>          
-    </div>
-  </div>
  
+  <button id='health' >HealthCare Professional</button>
+
+</div>
+
+<div className='third'>
+<br/>
+<div className='sign'><Signup/></div>          
+</div>
+
+</div>
+   <div className='fourth'>
+     <h1 id='h1'>Child Profile</h1>
+     <ChildProfile/>
+   </div>
+    </>
   );
 }
