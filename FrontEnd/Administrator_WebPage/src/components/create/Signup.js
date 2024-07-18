@@ -37,7 +37,7 @@ setErrors(errors);
 // Proceed with form submission
 if (Object.keys(errors).length === 0) {
   try {
-    const response = await axios.get('https://www.thunderclient.com/welcome', {
+    const response = await axios.post('https://localhost:3000', {
       fullName,
       nicNo,
       email,
