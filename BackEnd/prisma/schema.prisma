@@ -6,34 +6,42 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["mongodb"]
 }
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = "mongodb+srv://amindusathsara121:KE12li6g0AjaX12K@cluster0.zpxws.mongodb.net/kidsCareApplication"
+
 }
 
 //models for the users to
 model User {
-  id        String   @id @map("_id") @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   fullName  String
-  nicNo     String
-  email     String   @unique
-  contactNo String
+  nicNo     String   @unique
+  email     String   
+  contactNo String   @unique
   userType  String
+  userName  String   @unique
+  password  String    @unique
+  
+
 }
 
 model childProfile {
-  id String @id @map("_id") @db.ObjectId
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
   fullName String
+  gender String
+  birthDate String
+  birthPlace String
   birthWeight String
   birthHeight String
-  alegies String
+  alergies String
+  bornDieseases String
   medicalRecords String
-  vaccinationDetails String
+  vaccinesGiven String
+  vaccinesToBeGiven String
   parentNic String @unique
   
+} 
 
-
-}
