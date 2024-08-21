@@ -50,7 +50,7 @@
     margin-left: 50px;
     font-size: 54px;
     position: absolute;
-    margin-top: 39px;
+    margin-top: 45px;
     font-family:'Times New Roman', Times, serif;
 }
 
@@ -72,29 +72,30 @@
 
 #parent{
     position: absolute;
-    padding: 10px 20px;
+    padding: 0px 20px;
     margin-top: 250px;
     margin-left: 60px;
-    font-size: 24px;
-    background-color: rgb(12, 215, 97);
+    font-size: 30px;
+    background-color: rgb(9, 197, 87);
+    color: rgb(5, 94, 153);
     border-radius: 9px;
-    text-decoration-color: black;
-    width: 270px;
+    width: 240px;
     height: 56px;
-    
+    border-width:5px;
 }
 
 #health{
     position: absolute;
-    padding: 10px 20px;
+    padding: 4px 20px;
     margin-left: 450px;
     margin-top: 250px;
-    font-size: 20px;
-    background-color: rgb(12, 215, 97);
+    font-size: 25px;
+    background-color: rgb(9, 197, 87);
+    color: rgb(5, 94, 153);
     border-radius: 9px;
-    text-decoration-color: black;
-    width: 270px;
+    width: 240px;
     height: 56px;
+    border-width:5px;
 }
 
 

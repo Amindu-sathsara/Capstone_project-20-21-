@@ -15,6 +15,14 @@ export default function Home() {
     navigate('/changeP');
   };
 
+  const goToCCreate = () =>{
+      navigate('/CCreate');
+  };
+
+  const goToChildOption = () =>{
+    navigate('/cOption');
+  };
+
   return (
 
     <div>
@@ -26,13 +34,13 @@ export default function Home() {
        
       </div> 
      <div className='second'>
-       <h1 id='h1'>Creating New User Account</h1>
+       <h1 id='h1'>Work With Child Profile</h1>
        <img src="\TR_Healthcare-Medical-Trends_Feature.webp" alt='secondimage' className='new'/>
-       <h3 id='h3'>Create account for</h3>
-         
-       <button id='parent' >Parent</button>
       
-       <button id='health' >HealthCare Professional</button>
+         
+       <button id='parent' onClick={goToCCreate}>Create</button>
+      
+       <button id='health' onClick={goToChildOption}>Other Option</button>
     
      </div>
 

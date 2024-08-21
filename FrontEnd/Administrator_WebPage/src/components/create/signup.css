@@ -3,21 +3,20 @@
     background-image: linear-gradient(rgb(79, 178, 223),white);   
 }
 
-
 .text{
     margin-left: 30%;
 }
+
 .cover{
-   width: 70%;
+    width: 79%;
     height: 50%;
     margin-left: 15%;
     border-radius: 30px;
-
 }
   
 .Button{
     padding: 10px 20px;
-   margin-left: 34%;
+    
 }
 
 
@@ -28,12 +27,16 @@
     color: rgb(15, 15, 15);
     position: relative;
 }
+
 .fbox{
     position: relative;
     width: 60%;
     background-color: rgb(220, 213, 202);
-
 }
+.box{
+    margin-left: 5%;
+}
+
 #n{
     margin-left: 13px;
 }
@@ -46,5 +49,10 @@
 #S{
     margin-left: 10px;
 }
-
+#password{
+    margin-left: 15px;
+}
+#userName{
+    margin-left: 7px;
+}
 

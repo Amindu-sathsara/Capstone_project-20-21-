@@ -1,7 +1,7 @@
 import React from 'react'
-import Signup from '../../components/create/Signup'
 import "../../components/create/signup.css"
 import Upside from '../../components/upside/Upside'
+import CCreateForm from '../../components/childProfiles/createChildForm/CCreateForm'
 
 export default function Form() {
 
@@ -10,13 +10,12 @@ export default function Form() {
     <div>
 
       <div>
-        <Upside title='Create New Accounts for Users'/>
+        <Upside title='Create New Child Profile Here...'/>
       </div>
 
     <div className='third'>
-    <br/><br/><br/>
-    <div className='sign'><Signup/>
-    </div>          
+    <br/> 
+    <div><CCreateForm/></div>       
     </div>
    </div>
   )
