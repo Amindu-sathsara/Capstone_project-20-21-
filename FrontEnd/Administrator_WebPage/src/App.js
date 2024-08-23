@@ -5,13 +5,16 @@ import ChangeP from "./pages/changePermission/ChangeP"
 import Deletion from "./pages/deletionForm/Deletion"
 import GetDetails from "./pages/getDetailsForm/GetDetails"
 import UpdateF from "./pages/updateForm/UpdateF"
+import Navbar from "./components/NavBar";
 
 
 function App() {
 
   return (
-
+    
   <BrowserRouter>
+  <Navbar />
+  
     <Routes>
       <Route index element={<Home/>}/>
       <Route path="/form" element={<Form/>}/>
