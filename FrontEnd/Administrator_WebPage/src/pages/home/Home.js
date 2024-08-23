@@ -2,6 +2,7 @@ import React from 'react'
 import "../home/home.css"
 import Upside from '../../components/upside/Upside';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../../components/navBar/NavBar';
 
 export default function Home() {
 
@@ -26,7 +27,9 @@ export default function Home() {
   return (
 
     <div>
-
+       <div>
+        <Navbar/>
+       </div>
     <div>
     <Upside title='KidsCare Account Management'/>
         <button id='create' onClick={goToForm}>Create Account</button>
