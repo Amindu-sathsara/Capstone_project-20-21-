@@ -3,7 +3,7 @@ import './upside.css'
 
 export default function Upside(props) {
   return (
-    <div className='upside'>
+    <div className='upside'>{props.Upside}
   
     <h1 id='title'>{props.title}</h1>
 

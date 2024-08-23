@@ -10,6 +10,8 @@ export default function Signup() {
   const [email, setEmail] = useState('');
   const [contactNo, setContactNo] = useState('');
   const [userType, setUserType] = useState('');
+  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
   const [errors, setErrors] = useState({});
 
   // Function to handle the Form
@@ -32,17 +34,27 @@ if (!email) {
 if (!contactNo) {
   errors.contactNo = 'Contact number is required';
 }
+if (!password) {
+  errors.password = 'Password is required';
+} else if (password.length < 6) {
+  errors.password = 'Password must be at least 6 characters long';
+}
+if (!userName) {
+  errors.userName = 'userName is required';
+}
 setErrors(errors);
 
 // Proceed with form submission
 if (Object.keys(errors).length === 0) {
   try {
-    const response = await axios.get('https://www.thunderclient.com/welcome', {
+    const response = await axios.post('http://localhost:8000/users', {
       fullName,
       nicNo,
       email,
       contactNo,
       userType,
+      userName,
+      password,
     });
   
   console.log('Form submitted successfully:', response.data);
@@ -51,6 +63,8 @@ if (Object.keys(errors).length === 0) {
   setEmail('');
   setContactNo('');
   setUserType('');
+  setUserName('');
+  setPassword('');
 } catch (error){
   console.error('Error submitting form', error);
 }
@@ -92,6 +106,16 @@ if (Object.keys(errors).length === 0) {
            </select>
            {errors.userType && <span className='error'>{errors.userType}</span>}
            <br/>
+
+           <label className='ftext' htmlFor='userName'>UserName :</label>
+          <input className='fbox' id='userName' type='userName' placeholder='Enter UserName' value={userName} onChange={(e) => setUserName(e.target.value)} />
+          {errors.userName && <span className='error'>{errors.userName}</span>}
+          <br/>
+
+          <label className='ftext' htmlFor='password'>Password :</label>
+          <input className='fbox' id='password' type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+          {errors.password && <span className='error'>{errors.password}</span>}
+        
        </form>
        <div className='Button'>
           <button type='submit' className='buton' onClick={handleSubmit}>Create</button>
