@@ -14,23 +14,39 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import {UpdateUserDto} from './dto/update-user.dto';
+import { FindUserDto } from './dto/find-user.dto';
+import { DeleteUserDto } from './dto/delete-user.dto';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
     
     //Get request for all users data 
-    @Get()   //Get /users or /users?userType=value
-findAll(@Query('userType') userType?:'DOCTOR'|'PARENT'){
+    /*Meth1:@Get()   //Get /users or /users?userType=value
+findAll(@Query('userType') userType?:'DOCTOR'|'PARENT'){    //This Api also no need curretly for our web or mobile app
     return this.usersService.findAll(userType)
     
-}
+}*/
+    //Get all users
+    @Get()
+    findAll() {
+    return this.usersService.findAll();
+    }
+
 
     //get request for single user data
-    @Get(':id')
+    /*@Get(':id')
     findOne(@Param('id', ParseIntPipe) id: number) {
         return this.usersService.findOne(id);
-    }
+    }*/
+
+    //second attempt to get single user   ()
+    @Get('findone')
+findOne(@Body(ValidationPipe) findUserDto: FindUserDto) {
+    return this.usersService.findOne(findUserDto);
+}
+
+
 
     //Later try to create api for getting users based on their type 
 
@@ -43,7 +59,7 @@ findAll(@Query('userType') userType?:'DOCTOR'|'PARENT'){
 
     //upadte user datail
     //@Patch(':id')      //patch  /users/:id
-    update(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) updateUserDto:UpdateUserDto){
+    /*update(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) updateUserDto:UpdateUserDto){
     return this.usersService.update(id, updateUserDto)
 }
     
@@ -51,7 +67,21 @@ findAll(@Query('userType') userType?:'DOCTOR'|'PARENT'){
     @Delete(':id')  //Delete /user/:id
     delete(@Param('id',ParseIntPipe) id:number){
     return this.usersService.delete(id)
-}  
+}  */
+
+
+    //update users with finding relavant user from userName and nicNo
+    @Put('updateuser')
+    update(@Body(ValidationPipe) updateUserDto: UpdateUserDto) {
+    return this.usersService.update(updateUserDto);
+    }
+
+    //Delete one user from user: fullName and nicNo
+    @Delete('deleteuser')
+    delete(@Body(ValidationPipe) deleteUserDto: DeleteUserDto) {
+    return this.usersService.delete(deleteUserDto);
+  }
+    
 
     
 

@@ -7,14 +7,12 @@
 generator client {
   provider = "prisma-client-js"
 }
-
+ 
 datasource db {
   provider = "mongodb"
-  url      = "mongodb+srv://amindusathsara121:KE12li6g0AjaX12K@cluster0.zpxws.mongodb.net/kidsCareApplication"
-
+  url = env("DATABASE_URL")
 }
 
-//models for the users to
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   fullName  String
@@ -30,18 +28,24 @@ model User {
 
 model childProfile {
   id  String @id @default(auto()) @map("_id") @db.ObjectId
-  fullName String
+  fullName String @unique
   gender String
   birthDate String
   birthPlace String
   birthWeight String
   birthHeight String
-  alergies String
-  bornDieseases String
-  medicalRecords String
+  alergies String?
+  bornDiseases String?
+  medicalRecords String?
   vaccinesGiven String
   vaccinesToBeGiven String
   parentNic String @unique
   
 } 
 
+
+
+
+//models for the users to
+
+  //url      = "mongodb+srv://amindusathsara121:KE12li6g0AjaX12K@cluster0.zpxws.mongodb.net/kidsCareApplication?authSource=admin"

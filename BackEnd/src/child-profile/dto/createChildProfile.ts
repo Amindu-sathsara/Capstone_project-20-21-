@@ -1,6 +1,6 @@
 import { IsEmail,IsEnum,IsString,IsNotEmpty} from "class-validator";
 
-export class CreateChildProfileDto{
+/*export class CreateChildProfileDto{
 
     @IsString()
     @IsNotEmpty()
@@ -40,7 +40,7 @@ export class CreateChildProfileDto{
 
     
 
-}
+}*/
 
 /*id String @id @map("_id") @db.ObjectId
   fullName String
@@ -52,3 +52,54 @@ export class CreateChildProfileDto{
   vaccinesGiven String
   vaccinesToBeGiven String
   parentNic String @unique*/
+
+  export class CreateChildProfileDto {
+
+    @IsNotEmpty()
+    @IsString()
+    fullName: string;
+
+    @IsNotEmpty()
+    @IsString()
+    gender: string;
+
+    @IsNotEmpty()
+    @IsString()
+    birthDate: string; // Or Date if you're working with Date objects
+
+    @IsNotEmpty()
+    @IsString()
+    birthPlace: string;
+
+    @IsNotEmpty()
+    @IsString()
+    birthWeight: string;
+
+    @IsNotEmpty()
+    @IsString()
+    birthHeight: string;
+
+    @IsNotEmpty()
+    @IsString()
+    alergies: string;
+
+    @IsNotEmpty()
+    @IsString()
+    bornDiseases: string;
+
+    @IsNotEmpty()
+    @IsString()
+    medicalRecords: string;
+
+    @IsNotEmpty()
+    @IsString()
+    vaccinesGiven: string;
+
+    @IsNotEmpty()
+    @IsString()
+    vaccinesToBeGiven: string;
+
+    @IsNotEmpty()
+    @IsString()
+    parentNic: string;
+}

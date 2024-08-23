@@ -6,6 +6,8 @@ import { Injectable,NotFoundException } from '@nestjs/common';
 //import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import {UpdateUserDto } from './dto/update-user.dto';
+import { FindUserDto } from './dto/find-user.dto';
+import { DeleteUserDto } from './dto/delete-user.dto';
 
 
 @Injectable()
@@ -38,7 +40,7 @@ export class UsersService {
         }
     ]
     //Method for getting all users detaiils
-    findAll(userType?: 'DOCTOR' | 'PARENT' ) {
+    /*Meth1:findAll(userType?: 'DOCTOR' | 'PARENT' ) {
         if (userType) {
             const AllusersArray=this.users.filter(user => user.userType === userType);
             
@@ -50,28 +52,53 @@ export class UsersService {
             }
         }
         return this.users;
-    }
+    }*/
+
+        //second method to get all users :
+        async findAll() {
+            return this.prisma.user.findMany();
+          }
 
     //Method for getting one user detail
-    findOne(id:number){
+    /*findOne(id:number){
     const user = this.users.find(user => user.id === id);
         if(!user) throw new NotFoundException("That user is not found");
         return user;
+    }*/
+
+    //second attempt for getting one user
+    async findOne(findUserDto: FindUserDto) {
+        const user = await this.prisma.user.findFirst({
+            where: {
+                fullName: findUserDto.fullName,
+                nicNo: findUserDto.nicNo,
+                email: findUserDto.email,
+                contactNo: findUserDto.contactNo,
+            },
+        });
+
+        if (!user) {
+            throw new NotFoundException('User with the provided details not found');
+        }
+
+        return user;
     }
 
+
+    
     //Method for creating new user
-    async create(createUserDto: CreateUserDto) { 
+    /*async create(createUserDto: CreateUserDto) { 
         // const {
             
         // } = createUserDto; 
         await this.prisma.user.create({
             data: {
-                fullName: 'test',
-                nicNo: '1996',
-                email: "unique",
-                contactNo: '071',
-                userType: 'admin',
-                password: 'test',
+                fullName: 'test1',
+                nicNo: '1996234',
+                email: "unique2342",
+                contactNo: '071332525',
+                userType: 'DOCTOR',
+                password: 'test1',
                 userName: 'some username'
             }
             
@@ -83,10 +110,34 @@ export class UsersService {
         };
         this.users.push(newUser);
         return newUser;
-    }
+    }*/
+
+    //using chagpt I have been created user APIs 
+    async create(createUserDto: CreateUserDto) {
+        try {
+          // Check if user with the same userName already exists
+          const existingUser = await this.prisma.user.findUnique({
+            where: { userName: createUserDto.userName },
+          });
+      
+          if (existingUser) {
+            throw new Error('User with this username already exists.');
+          }
+      
+          // Create the new user if no duplicate is found
+          return await this.prisma.user.create({
+            data: createUserDto,
+          });
+        } catch (error) {
+          // Log the error and throw a specific error message
+          console.error('Error creating user:', error.message || error);
+          throw new Error(error.message || 'Internal Server Error');
+        }
+      }
+      
 
     //Method for updating an existing user
-    update(id: number, updateUserDto: UpdateUserDto) {
+    /*update(id: number, updateUserDto: UpdateUserDto) {
         this.users = this.users.map(user => {
             if (user.id === id) {
                 return { ...user, ...updateUserDto };
@@ -101,7 +152,7 @@ export class UsersService {
         const removedUser = this.findOne(id);
         this.users = this.users.filter(user => user.id !== id);
         return removedUser;
-    }
+    }*/
 
 
 
@@ -154,10 +205,58 @@ export class UsersService {
 
     }*/
 
+        //update one user method write here ...
+        async update(updateUserDto: UpdateUserDto) {
+            // Check if the user exists
+            const user = await this.prisma.user.findFirst({
+              where: {
+                fullName: updateUserDto.fullName,
+                nicNo: updateUserDto.nicNo,
+              },
+            });
+        
+            if (!user) {
+              throw new NotFoundException('User with the provided details not found');
+            }
+        
+            // Update the user details
+            return await this.prisma.user.update({
+              where: {
+                id: user.id,
+              },
+              data: updateUserDto,
+            });
+        }
+        
+
     //remove users data     from the database collection 
     /*async remove(id: any) {
         return this.prisma.prismaClient.user.delete({
             where: {
                 id: id,
             },*/
+
+    //Delete one user method :
+    async delete(deleteUserDto: DeleteUserDto) {
+        // Find the user to ensure it exists before deletion
+        const user = await this.prisma.user.findFirst({
+          where: {
+            fullName: deleteUserDto.fullName,
+            nicNo: deleteUserDto.nicNo,
+          },
+        });
+    
+        if (!user) {
+          throw new NotFoundException('User with the provided details not found');
+        }
+    
+        // Delete the user
+        await this.prisma.user.delete({
+          where: {
+            id: user.id,
+          },
+        });
+    
+        return { message: 'User successfully deleted' };
+      }
 }

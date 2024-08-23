@@ -13,7 +13,7 @@ export class CreateUserDto{
 
     @IsEmail()
     @IsEmail()
-    email:string ;
+    email:string;
 
     @IsString()
     @IsNotEmpty()
