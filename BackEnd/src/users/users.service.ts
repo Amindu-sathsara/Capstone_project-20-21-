@@ -131,7 +131,7 @@ export class UsersService {
         } catch (error) {
           // Log the error and throw a specific error message
           console.error('Error creating user:', error.message || error);
-          throw new Error(error.message || 'Internal Server Error');
+          throw new Error(error.message || 'Can not create user with provided details ');
         }
       }
       
