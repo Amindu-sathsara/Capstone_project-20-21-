@@ -1,68 +1,89 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import '../../create/signup.css';
 import '../createChildForm/cCcreate.css';
+import axios from 'axios';
 
-export default function ChildUpdateForm() {
-  const [fullName, setFullName] = useState('');
-  const [birthdayWeight, setBirthdayWeight] = useState('');
-  const [birthdayHeight, setBirthdayHeight] = useState('');
-  const [allergies, setAllergies] = useState('');
-  const [medicalRecords, setMedicalRecords] = useState('');
-  const [parentNic, setParentNic] = useState('');
-  const [gender, setGender] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [birthPlace, setBirthPlace] = useState('');
-  const [bornDiseases, setBornDiseases] = useState('');
-  const [vaccinesGiven, setVaccinesGiven] = useState('');
-  const [vaccinesToBeGiven, setVaccinesToBeGiven] = useState('');
+
+export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
+
+  const [fullName, setFullName] = useState(child?.fullName || '');
+  const [birthWeight, setBirthWeight] = useState(child?.birthWeight || '');
+  const [birthHeight, setBirthHeight] = useState(child?.birthHeight || '');
+  const [alergies, setAlergies] = useState(child?.alergies || '');
+  const [medicalRecords, setMedicalRecords] = useState(child?.medicalRecords || '');
+  const [parentNic, setParentNic] = useState(child?.parentNic || '');
+  const [gender, setGender] = useState(child?.gender || '');
+  const [birthDate, setBirthDate] = useState(child?.birthDate || '');
+  const [birthPlace, setBirthPlace] = useState(child?.birthPlace || '');
+  const [bornDiseases, setBornDiseases] = useState(child?.bornDiseases || '');
+  const [vaccinesGiven, setVaccinesGiven] = useState(child?.vaccinesGiven || '');
+  const [vaccinesToBeGiven, setVaccinesToBeGiven] = useState(child?.vaccinesToBeGiven || '');
   const [errors, setErrors] = useState({});
 
+
+  // Function to handle the Form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Perform form validation
     let errors = {};
-
-    if (!fullName.trim()) {
-      errors.fullName = 'Full name is required';
-    }
-    if (!birthdayWeight.trim()) {
-      errors.birthdayWeight = 'Birthday weight is required';
-    } else if (isNaN(birthdayWeight)) {
-      errors.birthdayWeight = 'Birthday weight must be a number';
-    }
-    if (!birthdayHeight.trim()) {
-      errors.birthdayHeight = 'Birthday height is required';
-    } else if (isNaN(birthdayHeight)) {
-      errors.birthdayHeight = 'Birthday height must be a number';
-    }
-    if (!parentNic.trim()) {
-      errors.parentNic = 'Parent NIC is required';
-    } else if (!/^\d{9}[vVxX]$/.test(parentNic)) {
-      errors.parentNic = 'Invalid NIC format';
-    }
-
+    if (!fullName) errors.fullName = 'Full name is required';
+    if (!birthWeight) errors.birthWeight = 'Birth weight is required';
+    if (!birthHeight) errors.birthHeight = 'Birth height is required';
+    if (!gender) errors.gender = 'Gender is required';
+    if (!birthDate) errors.birthDate = 'Birth date is required';
+    if (!birthPlace) errors.birthPlace = 'Birth place is required';
+    if (!parentNic) errors.parentNic = 'Parent NIC is required';
     setErrors(errors);
-    if (Object.keys(errors).length === 0) {
-      const data = {
-        fullName,
-        birthdayWeight,
-        birthdayHeight,
-        allergies,
-        medicalRecords,
-        parentNic,
-        gender,
-        birthDate,
-        birthPlace,
-        bornDiseases,
-        vaccinesGiven,
-        vaccinesToBeGiven
-      };
 
+    console.log("Form Data:", {
+      fullName,
+      gender,
+      birthDate,
+      birthPlace,
+      birthWeight,
+      birthHeight,
+      alergies,
+      bornDiseases,
+      medicalRecords,
+      vaccinesGiven,
+      vaccinesToBeGiven,
+      parentNic,
+    });
+
+    // Proceed with form submission
+    if (Object.keys(errors).length === 0) {
       try {
-        const response = await axios.put('your-api-url', data); // Use PUT method for updates
-        console.log(response.data);
+        const response = await axios.patch('http://localhost:3000/child-profile/updateChildProfile', {  
+          fullName,
+          gender,
+          birthDate,
+          birthPlace,
+          birthWeight,
+          birthHeight,
+          alergies,
+          bornDiseases,
+          medicalRecords,
+          vaccinesGiven,
+          vaccinesToBeGiven,
+          parentNic,
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log('Profile updated successfully:', response.data);
+        alert('Profile Updated Successfully');
+        // Clear form fields or handle success accordingly
+        // setFullName('');
+        // setNicNo('');
+        // setEmail('');
+        // setContactNo('');
+        // setUserType('');
+        // setUserName('');
+        // setPassword('');
       } catch (error) {
-        console.error(error);
+        console.error('Error updating form', error);
       }
     }
   };
@@ -70,11 +91,12 @@ export default function ChildUpdateForm() {
   return (
     <div className='container'>
       <div className='cover'>
+      <br/><h3 className='text'>Update Child's Profile</h3><br/>
         <form className='box' onSubmit={handleSubmit}>
-          <label className='ftext' htmlFor='name'>Full Name :</label>
+          <label className='ftext' htmlFor='name'>Full Name :</label><br/>
           <input
             className='fbox'
-            id='fullName'
+            id='textbox'
             type='text'
             placeholder='Enter Full Name'
             value={fullName}
@@ -83,10 +105,10 @@ export default function ChildUpdateForm() {
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
           <br />
 
-          <label className='ftext' htmlFor='gender'>Gender :</label>
+          <label className='ftext' htmlFor='gender'>Gender :</label><br/>
           <select
             className='fbox'
-            id='gender'
+            id='textbox'
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
@@ -97,10 +119,10 @@ export default function ChildUpdateForm() {
           {errors.gender && <span className='error'>{errors.gender}</span>}
           <br />
 
-          <label className='ftext' htmlFor='birthDate'>Birth Date :</label>
+          <label className='ftext' htmlFor='birthDate'>Birth Date :</label><br/>
           <input
             className='fbox'
-            id='birthDate'
+            id='textbox'
             type='date'
             value={birthDate}
             onChange={(e) => setBirthDate(e.target.value)}
@@ -108,10 +130,10 @@ export default function ChildUpdateForm() {
           {errors.birthDate && <span className='error'>{errors.birthDate}</span>}
           <br />
 
-          <label className='ftext' htmlFor='birthPlace'>Birth Place :</label>
+          <label className='ftext' htmlFor='birthPlace'>Birth Place :</label><br/>
           <input
             className='fbox'
-            id='birthPlace'
+            id='textbox'
             type='text'
             placeholder='Enter Birth Place'
             value={birthPlace}
@@ -120,46 +142,46 @@ export default function ChildUpdateForm() {
           {errors.birthPlace && <span className='error'>{errors.birthPlace}</span>}
           <br />
 
-          <label className='ftext' htmlFor='weight'>Birthday Weight :</label>
+          <label className='ftext' htmlFor='weight'>Birth Weight :</label><br/>
           <input
             className='fbox'
-            id='weight'
+            id='textbox'
             type='text'
             placeholder='Enter Weight'
-            value={birthdayWeight}
-            onChange={(e) => setBirthdayWeight(e.target.value)}
+            value={birthWeight}
+            onChange={(e) => setBirthWeight(e.target.value)}
           />
           {errors.birthdayWeight && <span className='error'>{errors.birthdayWeight}</span>}
           <br />
 
-          <label className='ftext' htmlFor='height'>Birthday Height :</label>
+          <label className='ftext' htmlFor='height'>Birth Height :</label><br/>
           <input
             className='fbox'
-            id='height'
+            id='textbox'
             type='text'
             placeholder='Enter Height'
-            value={birthdayHeight}
-            onChange={(e) => setBirthdayHeight(e.target.value)}
+            value={birthHeight}
+            onChange={(e) => setBirthHeight(e.target.value)}
           />
           {errors.birthdayHeight && <span className='error'>{errors.birthdayHeight}</span>}
           <br />
 
-          <label className='ftext' htmlFor='allergies'>Allergies :</label>
+          <label className='ftext' htmlFor='allergies'>Allergies :</label><br/>
           <input
             className='fbox'
-            id='allergies'
+            id='textbox'
             type='text'
             placeholder='Add Allergies'
-            value={allergies}
-            onChange={(e) => setAllergies(e.target.value)}
+            value={alergies}
+            onChange={(e) => setAlergies(e.target.value)}
           />
           {errors.allergies && <span className='error'>{errors.allergies}</span>}
           <br />
 
-          <label className='ftext' htmlFor='medicalRecords'>Medical Records :</label>
+          <label className='ftext' htmlFor='medicalRecords'>Medical Records :</label><br/>
           <input
             className='fbox'
-            id='medicalRecords'
+            id='textbox'
             type='text'
             placeholder='Enter Records'
             value={medicalRecords}
@@ -168,10 +190,10 @@ export default function ChildUpdateForm() {
           {errors.medicalRecords && <span className='error'>{errors.medicalRecords}</span>}
           <br />
 
-          <label className='ftext' htmlFor='bornDiseases'>Born Diseases :</label>
+          <label className='ftext' htmlFor='bornDiseases'>Born Diseases :</label><br/>
           <input
             className='fbox'
-            id='bornDiseases'
+            id='textbox'
             type='text'
             placeholder='Enter Diseases'
             value={bornDiseases}
@@ -180,10 +202,10 @@ export default function ChildUpdateForm() {
           {errors.bornDiseases && <span className='error'>{errors.bornDiseases}</span>}
           <br />
 
-          <label className='ftext' htmlFor='vaccinesGiven'>Vaccines Given :</label>
+          <label className='ftext' htmlFor='vaccinesGiven'>Vaccines Given :</label><br/>
           <input
             className='fbox'
-            id='vaccinesGiven'
+            id='textbox'
             type='text'
             placeholder='Enter Vaccines Given'
             value={vaccinesGiven}
@@ -192,10 +214,10 @@ export default function ChildUpdateForm() {
           {errors.vaccinesGiven && <span className='error'>{errors.vaccinesGiven}</span>}
           <br />
 
-          <label className='ftext' htmlFor='vaccinesToBeGiven'>Vaccines to Be Given :</label>
+          <label className='ftext' htmlFor='vaccinesToBeGiven'>Vaccines to Be Given :</label><br/>
           <input
             className='fbox'
-            id='vaccinesToBeGiven'
+            id='textbox'
             type='text'
             placeholder='Enter Vaccines to Be Given'
             value={vaccinesToBeGiven}
@@ -204,10 +226,10 @@ export default function ChildUpdateForm() {
           {errors.vaccinesToBeGiven && <span className='error'>{errors.vaccinesToBeGiven}</span>}
           <br />
 
-          <label className='ftext' htmlFor='parentNic'>Parent NIC :</label>
+          <label className='ftext' htmlFor='parentNic'>Parent NIC :</label><br/>
           <input
             className='fbox'
-            id='parentNic'
+            id='textbox'
             type='text'
             placeholder='Enter NIC'
             value={parentNic}

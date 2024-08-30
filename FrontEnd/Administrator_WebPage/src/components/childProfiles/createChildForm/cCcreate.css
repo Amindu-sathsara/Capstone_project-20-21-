@@ -1,42 +1,21 @@
-#fullName{
-    margin-left: 9.9%;
+#textbox{
+    width: 75%;
+    margin-left: 6.9%;
+    border-radius: 5%;
+    margin-top: -1.5%;
+    margin-bottom: 1.5%;
+    height: 135%;
 }
-#gender{
-    margin-left: 12.5%;
-}
-#birthDate{
-    margin-left: 10%;
-}
-#birthPlace{
-    margin-left: 9.7%;
-}
-#weight{
-    margin-left: 4.7%;
-}
-#height{
-    margin-left: 5%;
-}
-#allergies{
-    margin-left: 11.4%;
-}
-#medicalRecords{
-    margin-left: 4.3%;
-}
-#bornDiseases{
-    margin-left: 6.5%;
-}
-#vaccinesGiven{
-    margin-left: 5.5%;
-}
-#parentNic{
-    margin-left: 9.5%;
+
+.cover{
+    width: 75%;
+    height: 50%;
+    margin-left: 15%;
+    border-radius: 30px;
 }
 .Button{
-    margin-left: 37%;
+    margin-left: -1%;
 }
-.cover{
-    width: 79%;
-    height: 50%;
-    margin-left: 10%;
-    border-radius: 30px;
+.ftext{
+    margin-left: 5%;
 }

@@ -1,66 +1,63 @@
 import React, { useState } from 'react';
+import '../../create/signup.css';
 import axios from 'axios';
-import '../createChildForm/cCcreate.css';
+import '../../../components/button/button.css';
 
 export default function ChildDeleteForm() {
   const [fullName, setFullName] = useState('');
   const [parentNic, setParentNic] = useState('');
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState('');
 
-  const handleDelete = async (e) => {
+
+
+  // Function to handle the Form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate inputs
-    if (!parentNic.trim()) {
-      setErrors({ parentNic: 'Parent NIC is required' });
-      return;
+    // Perform form validation
+    let errors = {};
+    if (!fullName) {
+      errors.fullName = 'Full name is required';
     }
-    if (!fullName.trim()) {
-      setErrors({ fullName: 'Full Name is required' });
-      return;
+    if (!parentNic) {
+      errors.parentNic = 'NIC number is required';
     }
+    setErrors(errors);
 
-    try {
-      const response = await axios.delete(`your-api-endpoint/${parentNic}/${fullName}`);
-      
-      if (response.status === 200) {
-        setMessage('Child profile deleted successfully!');
-        setErrors({});
+    // Proceed with form submission if there are no errors
+    if (Object.keys(errors).length === 0) {
+      try {
+        // Replace with your actual delete endpoint URL
+        const response = await axios.delete('http://localhost:3000/child-profile/deleteChildProfile', {
+          data: {
+            fullName,
+            parentNic,
+          },
+        });
+
+        console.log('Profile deleted successfully:', response.data);
+        alert('Profile Deleted Succussfully');
+
+        // Clear the form fields after successful deletion
         setFullName('');
         setParentNic('');
-      } else {
-        setMessage('Failed to delete child profile.');
+      } catch (error) {
+        console.error('Error deleting account', error);
       }
-    } catch (error) {
-      console.error(error);
-      setMessage('Failed to delete child profile.');
     }
   };
 
   return (
     <div className='container'>
       <div className='cover'>
-        <br/><h3 className='text'>Delete Child's Profile</h3><br/>
-        {message && <p className='message'>{message}</p>}
-        <form className='box' onSubmit={handleDelete}>
-          
-          <label className='ftext' htmlFor='parentNic'>Parent NIC:</label>
+        <br />
+        <h3 className='text'>Delete User's Accounts</h3>
+        <br />
+        <form className='box' onSubmit={handleSubmit}>
+          <label className='ftext' htmlFor='name'>Full Name :</label><br/>
           <input
             className='fbox'
-            id='parentNic'
-            type='text'
-            placeholder='Enter NIC'
-            value={parentNic}
-            onChange={(e) => setParentNic(e.target.value)}
-          />
-          {errors.parentNic && <span className='error'>{errors.parentNic}</span>}
-          <br />
-
-          <label className='ftext' htmlFor='fullName'>Full Name:</label>
-          <input
-            className='fbox'
-            id='fullName'
+            id='n'
             type='text'
             placeholder='Enter Full Name'
             value={fullName}
@@ -69,9 +66,24 @@ export default function ChildDeleteForm() {
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
           <br />
 
-          <div className='Button'>
-            <button type='submit' className='buton'>Delete Profile</button>
+          <label className='ftext' htmlFor='nic'>Parent NIC:</label><br/>
+          <input
+            className='fbox'
+            id='n'
+            type='text'
+            placeholder='Enter NIC'
+            value={parentNic}
+            onChange={(e) => setParentNic(e.target.value)}
+          />
+          {errors.nicNo && <span className='error'>{errors.parentNic}</span>}
+          <br />
+
+          <div>
+            <button type='submit' className='buton'>
+              Delete
+            </button>
           </div>
+          <br/>
         </form>
       </div>
     </div>

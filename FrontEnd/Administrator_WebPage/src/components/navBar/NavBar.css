@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #09a944;
+    background-color: #1cb554;
     padding: 1rem;
   }
 
@@ -28,11 +28,12 @@
     text-decoration: underline;
   }
   #text{
-    text-decoration-color:#046B62;
-    font-size: 16px;
+    color:#d2f5f1;
+    font-size: 19px;
     font-weight: 700;
   }
   #text:active{
     font-size: 19px;
     text-decoration-color:  #03a295;
   }
+  

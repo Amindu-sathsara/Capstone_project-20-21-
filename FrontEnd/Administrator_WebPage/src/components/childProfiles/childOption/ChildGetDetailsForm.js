@@ -1,109 +1,85 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../createChildForm/cCcreate.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function ChildGetDetailsForm() {
   const [fullName, setFullName] = useState('');
-  const [birthdayWeight, setBirthdayWeight] = useState('');
-  const [birthdayHeight, setBirthdayHeight] = useState('');
-  const [allergies, setAllergies] = useState('');
-  const [medicalRecords, setMedicalRecords] = useState('');
-  const [gender, setGender] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-  const [birthPlace, setBirthPlace] = useState('');
-  const [bornDiseases, setBornDiseases] = useState('');
-  const [vaccinesGiven, setVaccinesGiven] = useState('');
-  const [vaccinesToBeGiven, setVaccinesToBeGiven] = useState('');
   const [parentNic, setParentNic] = useState('');
+  const [childDetails, setChildDetails] = useState(null);
   const [errors, setErrors] = useState({});
-  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
-  const handleFetch = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate inputs
-    if (!parentNic.trim()) {
-      setErrors({ parentNic: 'Parent NIC is required' });
-      return;
-    }
-    if (!fullName.trim()) {
-      setErrors({ fullName: 'Full Name is required' });
-      return;
-    }
+    // Perform form validation
+    let errors = {};
+    if (!fullName) errors.fullName = 'Full name is required';
+    if (!parentNic) errors.parentNic = 'parent Nic is required';
 
-    try {
-      const response = await axios.get(`your-api-endpoint/${parentNic}/${fullName}`);
-      const data = response.data;
-      
-      setFullName(data.fullName || '');
-      setBirthdayWeight(data.birthdayWeight || '');
-      setBirthdayHeight(data.birthdayHeight || '');
-      setAllergies(data.allergies || '');
-      setMedicalRecords(data.medicalRecords || '');
-      setGender(data.gender || '');
-      setBirthDate(data.birthDate || '');
-      setBirthPlace(data.birthPlace || '');
-      setBornDiseases(data.bornDiseases || '');
-      setVaccinesGiven(data.vaccinesGiven || '');
-      setVaccinesToBeGiven(data.vaccinesToBeGiven || '');
-      setMessage('Child profile fetched successfully!');
-      setErrors({});
-    } catch (error) {
-      console.error(error);
-      setMessage('Failed to fetch child profile.');
+    setErrors(errors);
+    console.log("Form Data:", {
+      fullName,
+      parentNic,
+    });
+
+    if (Object.keys(errors).length === 0) {
+      try {
+        const response = await axios.get('http://localhost:3000/child-profile/findoneChild', {
+          params: {
+            fullName,
+            parentNic,
+          },
+        });
+
+        setChildDetails(response.data);
+        navigate('/child-details', {state: {child:response.data } });
+
+      } catch (error) {
+        console.error('Error fetching user details', error);
+        setChildDetails(null);
+      }
     }
   };
 
   return (
     <div className='container'>
       <div className='cover'>
-        <br/><h3 className='text'>Get Child's Profile Information</h3><br/><br/>
-        {message && <p className='message'>{message}</p>}
-        <form className='box' onSubmit={handleFetch}>
+      <br/><h3 className='text'>See Details Of Child</h3><br/>
+
+        <form className='box' onSubmit={handleSubmit}>
           
-          <label className='ftext' htmlFor='parentNic'>Parent NIC:</label>
-          <input
-            className='fbox'
-            id='parentNic'
-            type='text'
-            placeholder='Enter NIC'
-            value={parentNic}
-            onChange={(e) => setParentNic(e.target.value)}
-          />
-          {errors.parentNic && <span className='error'>{errors.parentNic}</span>}
-          <br />
-
-          <label className='ftext' htmlFor='fullName'>Full Name:</label>
-          <input
-            className='fbox'
-            id='fullName'
-            type='text'
-            placeholder='Enter Full Name'
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
+          <label className='ftext' htmlFor='name'>Full Name :</label><br/>
+          <input className='fbox' id='n' type='text' placeholder='Enter Full Name' value={fullName} onChange={(e) => setFullName(e.target.value)} />
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
-          <br />
-
-          <div className='Button'>
-            <button type='submit' className='buton'>Get Details</button>
-          </div>
+          <br/>
+          
+          <label className='ftext' htmlFor='nicNo'>Parent NIC:</label><br/>
+          <input className='fbox' id='n' type='text' placeholder='Enter NIC' value={parentNic} onChange={(e) => setParentNic(e.target.value)} />
+          {errors.parentNic && <span className='error'>{errors.parentNic}</span>}
+          <br/>
+      
         </form>
-        
-        {fullName && (
-          <div className='details'>
-            <h4>Child Details:</h4>
-            <p><strong>Full Name:</strong> {fullName}</p>
-            <p><strong>Birthday Weight:</strong> {birthdayWeight}</p>
-            <p><strong>Birthday Height:</strong> {birthdayHeight}</p>
-            <p><strong>Allergies:</strong> {allergies}</p>
-            <p><strong>Medical Records:</strong> {medicalRecords}</p>
-            <p><strong>Gender:</strong> {gender}</p>
-            <p><strong>Birth Date:</strong> {birthDate}</p>
-            <p><strong>Birth Place:</strong> {birthPlace}</p>
-            <p><strong>Born Diseases:</strong> {bornDiseases}</p>
-            <p><strong>Vaccines Given:</strong> {vaccinesGiven}</p>
-            <p><strong>Vaccines To Be Given:</strong> {vaccinesToBeGiven}</p>
+
+        <div className='Button'>
+          <button type='submit' className='buton' onClick={handleSubmit}>See Details</button>
+       </div>
+        <br/>
+        {childDetails && (
+          <div className='user-details'>
+            <h3>User Details</h3>
+            <p>Full Name: {childDetails.fullName}</p>
+            <p>Birth Weight: {childDetails.birthWeight}</p>
+            <p>Birth Height: {childDetails.birthHeight}</p>
+            <p>Allergies: {childDetails.alergies}</p>
+            <p>Medical Records: {childDetails.medicalRecords}</p>
+            <p>Gender: {childDetails.gender}</p>
+            <p>Birth Date: {childDetails.birthDate}</p>
+            <p>Birth Place: {childDetails.birthPlace}</p>
+            <p>Born Diseases: {childDetails.bornDiseases}</p>
+            <p>Vaccines Given: {childDetails.vaccinesGiven}</p>
+            <p>Vaccines To Be Given: {childDetails.vaccinesToBeGiven}</p>
           </div>
         )}
       </div>

@@ -10,7 +10,8 @@ import {
      Body,
      Param,
      Delete,
-     Put,Query,ParseIntPipe,ValidationPipe } from '@nestjs/common';
+     Put,Query,ParseIntPipe,ValidationPipe, 
+     Patch} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import {UpdateUserDto} from './dto/update-user.dto';
@@ -42,7 +43,7 @@ findAll(@Query('userType') userType?:'DOCTOR'|'PARENT'){    //This Api also no n
 
     //second attempt to get single user   ()
     @Get('findone')
-findOne(@Body(ValidationPipe) findUserDto: FindUserDto) {
+    findOne(@Query(ValidationPipe) findUserDto: FindUserDto) {
     return this.usersService.findOne(findUserDto);
 }
 
@@ -52,8 +53,8 @@ findOne(@Body(ValidationPipe) findUserDto: FindUserDto) {
 
     //create new user  
     @Post()
-    create(@Body(ValidationPipe) createUserDto:CreateUserDto){
-    return this.usersService.create(createUserDto);
+    async Create(@Body(ValidationPipe) createUserDto:CreateUserDto){
+    return await this.usersService.create(createUserDto);
 }
 
 
@@ -71,7 +72,7 @@ findOne(@Body(ValidationPipe) findUserDto: FindUserDto) {
 
 
     //update users with finding relavant user from userName and nicNo
-    @Put('updateuser')
+    @Patch('updateuser')
     update(@Body(ValidationPipe) updateUserDto: UpdateUserDto) {
     return this.usersService.update(updateUserDto);
     }
