@@ -13,6 +13,7 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [userName, setUserName] = useState('');
   const [errors, setErrors] = useState({});
+ 
 
   // Function to handle the Form
   const handleSubmit = async (e) => {
@@ -44,10 +45,21 @@ if (!userName) {
 }
 setErrors(errors);
 
+console.log("Form Data:", {
+  fullName,
+  nicNo,
+  email,
+  contactNo,
+  userType,
+  userName,
+  password,
+});
+
+
 // Proceed with form submission
 if (Object.keys(errors).length === 0) {
   try {
-    const response = await axios.post('http://localhost:8000/users', {
+    const response = await axios.post('http://localhost:3000/users', {
       fullName,
       nicNo,
       email,
@@ -55,9 +67,13 @@ if (Object.keys(errors).length === 0) {
       userType,
       userName,
       password,
+    }, {
+      headers: {
+        'Content-Type':'application/json',
+      },
     });
-  
-  console.log('Form submitted successfully:', response.data);
+    console.log('Account create successfully:', response.data);
+    alert("Account create Successfully");
   setFullName('');
   setNicNo('');
   setEmail('');
@@ -76,51 +92,51 @@ if (Object.keys(errors).length === 0) {
      <div className='cover'>
        <form className='box' onSubmit={handleSubmit}>
         
-          <label className='ftext' htmlFor='name'>Full Name :</label>
+          <label className='ftext' htmlFor='name'>Full Name :</label><br/>
           <input className='fbox'id='n'type='text' placeholder='Enter Full Name' value={fullName} onChange={(e) => setFullName(e.target.value)} />
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
           <br/>
         
         
-          <label className='ftext' htmlFor='number'>NIC No:</label>
-          <input className='fbox' id='N'type='number' placeholder='Enter NIC' value={nicNo} onChange={(e) => setNicNo(e.target.value)} />
+          <label className='ftext' htmlFor='number'>NIC No:</label><br/>
+          <input className='fbox' id='n'type='number' placeholder='Enter NIC' value={nicNo} onChange={(e) => setNicNo(e.target.value)} />
           {errors.nicNo && <span className='error'>{errors.nicNo}</span>}
           <br/>
         
         
-          <label className='ftext' htmlFor='email'>Email :</label>
-          <input className='fbox' id='E'type='text' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)}/>
+          <label className='ftext' htmlFor='email'>Email :</label><br/>
+          <input className='fbox' id='n'type='text' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)}/>
           {errors.email && <span className='error'>{errors.email}</span>}
           <br/>
         
         
-          <label className='ftext' htmlFor='number'>Contact No :</label>
-          <input className='fbox' type='number' placeholder='Enter Number' value={contactNo} onChange={(e) => setContactNo(e.target.value)}/>
+          <label className='ftext' htmlFor='number'>Contact No :</label><br/>
+          <input className='fbox' id='n' type='number' placeholder='Enter Number' value={contactNo} onChange={(e) => setContactNo(e.target.value)}/>
           {errors.contactNo && <span className='error'>{errors.contactNo}</span>}
           <br/>
 
-          <label className='ftext'> User Type :</label>
-           <select className="fbox" id='S' value={userType} onChange={(e) => setUserType(e.target.value)}>
-            <option>Parent</option>
-            <option>HealthCare Professional</option>
+          <label className='ftext'> User Type :</label><br/>
+           <select className="fbox" id='n' value={userType} onChange={(e) => setUserType(e.target.value)}>
+            <option>PARENT</option>
+            <option>DOCTOR</option>
            </select>
            {errors.userType && <span className='error'>{errors.userType}</span>}
            <br/>
 
-           <label className='ftext' htmlFor='userName'>UserName :</label>
-          <input className='fbox' id='userName' type='userName' placeholder='Enter UserName' value={userName} onChange={(e) => setUserName(e.target.value)} />
+           <label className='ftext' htmlFor='userName'>UserName :</label><br/>
+          <input className='fbox' id='n' type='userName' placeholder='Enter UserName' value={userName} onChange={(e) => setUserName(e.target.value)} />
           {errors.userName && <span className='error'>{errors.userName}</span>}
           <br/>
 
-          <label className='ftext' htmlFor='password'>Password :</label>
-          <input className='fbox' id='password' type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+          <label className='ftext' htmlFor='password'>Password :</label><br/>
+          <input className='fbox' id='n' type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
           {errors.password && <span className='error'>{errors.password}</span>}
         
-       </form>
-       <div className='Button'>
-          <button type='submit' className='buton' onClick={handleSubmit}>Create</button>
+      
+       <div>
+          <button type='submit' className='buton'>Create</button>
        </div>
-
+       </form>
       </div> 
     </div>
   );

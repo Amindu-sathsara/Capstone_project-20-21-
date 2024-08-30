@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import '../create/signup.css'
 import '../button/button.css'
 
@@ -10,6 +11,7 @@ export default function SeeDetails() {
   const [contactNo, setContactNo] = useState('');
   const [errors, setErrors] = useState({});
   const [userDetails, setUserDetails] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,17 +33,26 @@ export default function SeeDetails() {
       errors.contactNo = 'Contact number is required';
     }
     setErrors(errors);
+    console.log("Form Data:", {
+      fullName,
+      nicNo,
+      email,
+      contactNo,
+    
+    });
 
     if (Object.keys(errors).length === 0) {
       try {
-        const response = await axios.get('https://your-api-endpoint.com/users', {
+        const response = await axios.get('http://localhost:3000/users/findone', {
           params: {
+            fullName,
             nicNo,
             email,
+            contactNo,
           },
         });
-
         setUserDetails(response.data);
+        navigate('/user-details', {state: {user:response.data } });
       } catch (error) {
         console.error('Error fetching user details', error);
         setUserDetails(null);
@@ -56,23 +67,23 @@ export default function SeeDetails() {
 
         <form className='box' onSubmit={handleSubmit}>
           
-          <label className='ftext' htmlFor='name'>Full Name :</label>
+          <label className='ftext' htmlFor='name'>Full Name :</label><br/>
           <input className='fbox' id='n' type='text' placeholder='Enter Full Name' value={fullName} onChange={(e) => setFullName(e.target.value)} />
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
           <br/>
           
-          <label className='ftext' htmlFor='nicNo'>NIC No:</label>
-          <input className='fbox' id='N' type='text' placeholder='Enter NIC' value={nicNo} onChange={(e) => setNicNo(e.target.value)} />
+          <label className='ftext' htmlFor='nicNo'>NIC No:</label><br/>
+          <input className='fbox' id='n' type='text' placeholder='Enter NIC' value={nicNo} onChange={(e) => setNicNo(e.target.value)} />
           {errors.nicNo && <span className='error'>{errors.nicNo}</span>}
           <br/>
           
-          <label className='ftext' htmlFor='email'>Email :</label>
-          <input className='fbox' id='E' type='text' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+          <label className='ftext' htmlFor='email'>Email :</label><br/>
+          <input className='fbox' id='n' type='text' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)} />
           {errors.email && <span className='error'>{errors.email}</span>}
           <br/>
           
-          <label className='ftext' htmlFor='contactNo'>Contact No :</label>
-          <input className='fbox' id='contactNo' type='text' placeholder='Enter Number' value={contactNo} onChange={(e) => setContactNo(e.target.value)} />
+          <label className='ftext' htmlFor='contactNo'>Contact No :</label><br/>
+          <input className='fbox' id='n' type='text' placeholder='Enter Number' value={contactNo} onChange={(e) => setContactNo(e.target.value)} />
           {errors.contactNo && <span className='error'>{errors.contactNo}</span>}
           <br/>
       
@@ -81,7 +92,7 @@ export default function SeeDetails() {
         <div className='Button'>
           <button type='submit' className='buton' onClick={handleSubmit}>See Details</button>
        </div>
-
+        <br/>
         {userDetails && (
           <div className='user-details'>
             <h3>User Details</h3>

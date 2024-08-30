@@ -14,4 +14,9 @@ export class PrismaService {
     get user() {
         return this.prismaClient.user;
     }
+
+    get childProfile() {
+        return this.prismaClient.childProfile;
+    }
+
 }

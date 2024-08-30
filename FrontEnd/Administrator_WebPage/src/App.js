@@ -9,7 +9,11 @@ import CCreate from "./pages/childCreate/CCreate";
 import COption from "./pages/childOptionPage/COption";
 import ChildDelete from "./pages/childOptionForms/ChildDelete"
 import ChildUpdate from "./pages/childOptionForms/ChildUpdate";
-import ChildGetDetails from "./pages/childOptionForms/ChildDelete";
+import ChildGetDetails from "./pages/childOptionForms/ChildGetDetails";
+import UserDetailsPage from "./pages/getDetailsForm/UserDetailsPage";
+import ChildDetails from "./pages/childOptionForms/ChildDetails";
+
+
 
 
 function App() {
@@ -29,6 +33,8 @@ function App() {
       <Route path="/cDelete" element={<ChildDelete/>}/>
       <Route path="/cUpdate" element={<ChildUpdate/>}/>
       <Route path="/cGetDetails" element={<ChildGetDetails/>}/>
+      <Route path="/user-details" element={<UserDetailsPage/>}/>
+      <Route path="/child-details" element={<ChildDetails/>}/>
     </Routes>
   </BrowserRouter>
   );

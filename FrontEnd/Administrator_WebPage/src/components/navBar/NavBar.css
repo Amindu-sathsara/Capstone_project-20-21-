@@ -1,0 +1,39 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1cb554;
+    padding: 1rem;
+  }
+
+  .navbar h1 {
+    color: #046B62;
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+  }
+
+  .nav-links li {
+    margin: 0 1rem;
+  }
+
+  .nav-links a {
+    
+    text-decoration: none;
+  }
+
+  .nav-links a:hover {
+    text-decoration: underline;
+  }
+  #text{
+    color:#d2f5f1;
+    font-size: 19px;
+    font-weight: 700;
+  }
+  #text:active{
+    font-size: 19px;
+    text-decoration-color:  #03a295;
+  }
+  

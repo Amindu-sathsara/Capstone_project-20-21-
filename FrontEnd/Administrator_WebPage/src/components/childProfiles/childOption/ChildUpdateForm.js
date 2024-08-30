@@ -1,72 +1,89 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import '../../create/signup.css';
 import '../createChildForm/cCcreate.css';
+import axios from 'axios';
 
-export default function CCreateForm({ existingData }) { // Accept existing data as a prop
-  const [fullName, setFullName] = useState(existingData?.fullName || '');
-  const [birthdayWeight, setBirthdayWeight] = useState(existingData?.birthdayWeight || '');
-  const [birthdayHeight, setBirthdayHeight] = useState(existingData?.birthdayHeight || '');
-  const [allergies, setAllergies] = useState(existingData?.allergies || '');
-  const [medicalRecords, setMedicalRecords] = useState(existingData?.medicalRecords || '');
-  const [vaccinationDetails, setVaccinationDetails] = useState(existingData?.vaccinationDetails || '');
-  const [parentNic, setParentNic] = useState(existingData?.parentNic || '');
+
+export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
+
+  const [fullName, setFullName] = useState(child?.fullName || '');
+  const [birthWeight, setBirthWeight] = useState(child?.birthWeight || '');
+  const [birthHeight, setBirthHeight] = useState(child?.birthHeight || '');
+  const [alergies, setAlergies] = useState(child?.alergies || '');
+  const [medicalRecords, setMedicalRecords] = useState(child?.medicalRecords || '');
+  const [parentNic, setParentNic] = useState(child?.parentNic || '');
+  const [gender, setGender] = useState(child?.gender || '');
+  const [birthDate, setBirthDate] = useState(child?.birthDate || '');
+  const [birthPlace, setBirthPlace] = useState(child?.birthPlace || '');
+  const [bornDiseases, setBornDiseases] = useState(child?.bornDiseases || '');
+  const [vaccinesGiven, setVaccinesGiven] = useState(child?.vaccinesGiven || '');
+  const [vaccinesToBeGiven, setVaccinesToBeGiven] = useState(child?.vaccinesToBeGiven || '');
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
-    if (existingData) {
-      setFullName(existingData.fullName);
-      setBirthdayWeight(existingData.birthdayWeight);
-      setBirthdayHeight(existingData.birthdayHeight);
-      setAllergies(existingData.allergies);
-      setMedicalRecords(existingData.medicalRecords);
-      setVaccinationDetails(existingData.vaccinationDetails);
-      setParentNic(existingData.parentNic);
-    }
-  }, [existingData]);
 
+  // Function to handle the Form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Perform form validation
     let errors = {};
-
-    if (!fullName.trim()) {
-      errors.fullName = 'Full name is required';
-    }
-    if (!birthdayWeight.trim()) {
-      errors.birthdayWeight = 'Birthday weight is required';
-    } else if (isNaN(birthdayWeight)) {
-      errors.birthdayWeight = 'Birthday weight must be a number';
-    }
-    if (!birthdayHeight.trim()) {
-      errors.birthdayHeight = 'Birthday height is required';
-    } else if (isNaN(birthdayHeight)) {
-      errors.birthdayHeight = 'Birthday height must be a number';
-    }
-    if (!parentNic.trim()) {
-      errors.parentNic = 'Parent NIC is required';
-    } else if (!/^\d{9}[vVxX]$/.test(parentNic)) { // Example NIC format validation
-      errors.parentNic = 'Invalid NIC format';
-    }
-
+    if (!fullName) errors.fullName = 'Full name is required';
+    if (!birthWeight) errors.birthWeight = 'Birth weight is required';
+    if (!birthHeight) errors.birthHeight = 'Birth height is required';
+    if (!gender) errors.gender = 'Gender is required';
+    if (!birthDate) errors.birthDate = 'Birth date is required';
+    if (!birthPlace) errors.birthPlace = 'Birth place is required';
+    if (!parentNic) errors.parentNic = 'Parent NIC is required';
     setErrors(errors);
-    if (Object.keys(errors).length === 0) {
-      
-      const data = {
-        fullName,
-        birthdayWeight,
-        birthdayHeight,
-        allergies,
-        medicalRecords,
-        vaccinationDetails,
-        parentNic
-      };
 
+    console.log("Form Data:", {
+      fullName,
+      gender,
+      birthDate,
+      birthPlace,
+      birthWeight,
+      birthHeight,
+      alergies,
+      bornDiseases,
+      medicalRecords,
+      vaccinesGiven,
+      vaccinesToBeGiven,
+      parentNic,
+    });
+
+    // Proceed with form submission
+    if (Object.keys(errors).length === 0) {
       try {
-        const response = await axios.put(`your-api-url/${existingData.id}`, data); // Send PUT request with existingData ID
-        console.log(response.data);
-        
+        const response = await axios.patch('http://localhost:3000/child-profile/updateChildProfile', {  
+          fullName,
+          gender,
+          birthDate,
+          birthPlace,
+          birthWeight,
+          birthHeight,
+          alergies,
+          bornDiseases,
+          medicalRecords,
+          vaccinesGiven,
+          vaccinesToBeGiven,
+          parentNic,
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        console.log('Profile updated successfully:', response.data);
+        alert('Profile Updated Successfully');
+        // Clear form fields or handle success accordingly
+        // setFullName('');
+        // setNicNo('');
+        // setEmail('');
+        // setContactNo('');
+        // setUserType('');
+        // setUserName('');
+        // setPassword('');
       } catch (error) {
-        console.error(error);
+        console.error('Error updating form', error);
       }
     }
   };
@@ -74,13 +91,12 @@ export default function CCreateForm({ existingData }) { // Accept existing data 
   return (
     <div className='container'>
       <div className='cover'>
-      <br/><h3 className='text'>Update Child Profile Information</h3><br/>
+      <br/><h3 className='text'>Update Child's Profile</h3><br/>
         <form className='box' onSubmit={handleSubmit}>
-          
-          <label className='ftext' htmlFor='name'>Full Name :</label>
+          <label className='ftext' htmlFor='name'>Full Name :</label><br/>
           <input
             className='fbox'
-            id='name'
+            id='textbox'
             type='text'
             placeholder='Enter Full Name'
             value={fullName}
@@ -88,47 +104,84 @@ export default function CCreateForm({ existingData }) { // Accept existing data 
           />
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
           <br />
-          
-          <label className='ftext' htmlFor='weight'>Birthday Weight:</label>
+
+          <label className='ftext' htmlFor='gender'>Gender :</label><br/>
+          <select
+            className='fbox'
+            id='textbox'
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+          >
+            <option value=''>Select Gender</option>
+            <option value='Male'>Male</option>
+            <option value='Female'>Female</option>
+          </select>
+          {errors.gender && <span className='error'>{errors.gender}</span>}
+          <br />
+
+          <label className='ftext' htmlFor='birthDate'>Birth Date :</label><br/>
           <input
             className='fbox'
-            id='weight'
+            id='textbox'
+            type='date'
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
+          />
+          {errors.birthDate && <span className='error'>{errors.birthDate}</span>}
+          <br />
+
+          <label className='ftext' htmlFor='birthPlace'>Birth Place :</label><br/>
+          <input
+            className='fbox'
+            id='textbox'
+            type='text'
+            placeholder='Enter Birth Place'
+            value={birthPlace}
+            onChange={(e) => setBirthPlace(e.target.value)}
+          />
+          {errors.birthPlace && <span className='error'>{errors.birthPlace}</span>}
+          <br />
+
+          <label className='ftext' htmlFor='weight'>Birth Weight :</label><br/>
+          <input
+            className='fbox'
+            id='textbox'
             type='text'
             placeholder='Enter Weight'
-            value={birthdayWeight}
-            onChange={(e) => setBirthdayWeight(e.target.value)}
+            value={birthWeight}
+            onChange={(e) => setBirthWeight(e.target.value)}
           />
           {errors.birthdayWeight && <span className='error'>{errors.birthdayWeight}</span>}
           <br />
-          
-          <label className='ftext' htmlFor='height'>Birthday Height:</label>
+
+          <label className='ftext' htmlFor='height'>Birth Height :</label><br/>
           <input
             className='fbox'
-            id='height'
+            id='textbox'
             type='text'
             placeholder='Enter Height'
-            value={birthdayHeight}
-            onChange={(e) => setBirthdayHeight(e.target.value)}
+            value={birthHeight}
+            onChange={(e) => setBirthHeight(e.target.value)}
           />
           {errors.birthdayHeight && <span className='error'>{errors.birthdayHeight}</span>}
           <br />
-          
-          <label className='ftext' htmlFor='allergies'>Allergies :</label>
+
+          <label className='ftext' htmlFor='allergies'>Allergies :</label><br/>
           <input
             className='fbox'
-            id='allergies'
+            id='textbox'
             type='text'
             placeholder='Add Allergies'
-            value={allergies}
-            onChange={(e) => setAllergies(e.target.value)}
+            value={alergies}
+            onChange={(e) => setAlergies(e.target.value)}
           />
           {errors.allergies && <span className='error'>{errors.allergies}</span>}
           <br />
-          
-          <label className='ftext' htmlFor='medicalRecords'>Medical Records:</label>
+
+          <label className='ftext' htmlFor='medicalRecords'>Medical Records :</label><br/>
           <input
             className='fbox'
-            id='medicalRecords'
+            id='textbox'
             type='text'
             placeholder='Enter Records'
             value={medicalRecords}
@@ -136,36 +189,60 @@ export default function CCreateForm({ existingData }) { // Accept existing data 
           />
           {errors.medicalRecords && <span className='error'>{errors.medicalRecords}</span>}
           <br />
-          
-          <label className='ftext' htmlFor='vaccinationDetails'>Vaccination Details:</label>
+
+          <label className='ftext' htmlFor='bornDiseases'>Born Diseases :</label><br/>
           <input
             className='fbox'
-            id='vaccinationDetails'
+            id='textbox'
             type='text'
-            placeholder='Enter Details'
-            value={vaccinationDetails}
-            onChange={(e) => setVaccinationDetails(e.target.value)}
+            placeholder='Enter Diseases'
+            value={bornDiseases}
+            onChange={(e) => setBornDiseases(e.target.value)}
           />
-          {errors.vaccinationDetails && <span className='error'>{errors.vaccinationDetails}</span>}
+          {errors.bornDiseases && <span className='error'>{errors.bornDiseases}</span>}
           <br />
 
-          <label className='ftext' htmlFor='parentNic'>Parent NIC:</label>
+          <label className='ftext' htmlFor='vaccinesGiven'>Vaccines Given :</label><br/>
           <input
             className='fbox'
-            id='parentNic'
-            type='NIC'
+            id='textbox'
+            type='text'
+            placeholder='Enter Vaccines Given'
+            value={vaccinesGiven}
+            onChange={(e) => setVaccinesGiven(e.target.value)}
+          />
+          {errors.vaccinesGiven && <span className='error'>{errors.vaccinesGiven}</span>}
+          <br />
+
+          <label className='ftext' htmlFor='vaccinesToBeGiven'>Vaccines to Be Given :</label><br/>
+          <input
+            className='fbox'
+            id='textbox'
+            type='text'
+            placeholder='Enter Vaccines to Be Given'
+            value={vaccinesToBeGiven}
+            onChange={(e) => setVaccinesToBeGiven(e.target.value)}
+          />
+          {errors.vaccinesToBeGiven && <span className='error'>{errors.vaccinesToBeGiven}</span>}
+          <br />
+
+          <label className='ftext' htmlFor='parentNic'>Parent NIC :</label><br/>
+          <input
+            className='fbox'
+            id='textbox'
+            type='text'
             placeholder='Enter NIC'
             value={parentNic}
             onChange={(e) => setParentNic(e.target.value)}
           />
           {errors.parentNic && <span className='error'>{errors.parentNic}</span>}
           <br />
-          
+
           <div className='Button'>
             <button type='submit' className='buton'>Update</button>
           </div>
         </form>
-      </div> 
+      </div>
     </div>
   );
 }

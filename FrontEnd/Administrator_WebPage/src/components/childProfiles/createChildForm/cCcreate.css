@@ -1,21 +1,21 @@
-#name{
-    margin-left: 7.9%;
+#textbox{
+    width: 75%;
+    margin-left: 6.9%;
+    border-radius: 5%;
+    margin-top: -1.5%;
+    margin-bottom: 1.5%;
+    height: 135%;
 }
-#weight{
-    margin-left: 3.3%;
-}
-#height{
-    margin-left: 3.4%;
-}
-#allergies{
-    margin-left: 9.1%;
-}
-#medicalRecords{
-    margin-left: 2.7%;
-}
-#parentNic{
-    margin-left: 7.9%;
+
+.cover{
+    width: 75%;
+    height: 50%;
+    margin-left: 15%;
+    border-radius: 30px;
 }
 .Button{
-    margin-left: 37%;
+    margin-left: -1%;
+}
+.ftext{
+    margin-left: 5%;
 }
