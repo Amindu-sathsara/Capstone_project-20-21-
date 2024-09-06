@@ -8,7 +8,7 @@
     --input-border: #e0e0e0;
     --error-color: #e74c3c;
   }
-  
+
   body {
     font-family: 'Arial', sans-serif;
     background-color: var(--background-color);
@@ -17,8 +17,8 @@
     margin: 0;
     padding: 0;
   }
-  
-  .see-details-container {
+
+   .see-details-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,5 +128,4 @@
     .submit-button {
       padding: 0.625rem;
     }
-    
   }

@@ -1,28 +1,44 @@
-// UserDetailsPage.js
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import '../../components/seeDetails/details.css'
-import '../../components/create/signup.css'
+import '../../components/seeDetails/details.css';
 
 export default function UserDetailsPage() {
   const location = useLocation();
-  const { user } = location.state || {}; // Retrieve user data from state
+  const { user } = location.state || {};
 
   return (
-    <div className='containe'>
-      <div className='cove'>
-        <h3 id='tilt'>User Details</h3>
+    <div className="user-details-container">
+      <div className="user-details-card">
+        <h2 className="user-details-title">User Details</h2>
         {user ? (
-          <div className='user-details'>
-            <p id='details'>Full Name: {user.fullName}</p>
-            <p id='details'>NIC No: {user.nicNo}</p>
-            <p id='details'>Email: {user.email}</p>
-            <p id='details'>Contact No: {user.contactNo}</p>
-            <p id='details'>User Type: {user.userType}</p>
-            <p id='details'>User Name: {user.userName}</p>
+          <div className="user-details-content">
+            <div className="detail-item">
+              <span className="detail-label">Full Name:</span>
+              <span className="detail-value">{user.fullName}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">NIC No:</span>
+              <span className="detail-value">{user.nicNo}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Email:</span>
+              <span className="detail-value">{user.email}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">Contact No:</span>
+              <span className="detail-value">{user.contactNo}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">User Type:</span>
+              <span className="detail-value">{user.userType}</span>
+            </div>
+            <div className="detail-item">
+              <span className="detail-label">User Name:</span>
+              <span className="detail-value">{user.userName}</span>
+            </div>
           </div>
         ) : (
-          <p>No user details available</p>
+          <p className="no-details">No user details available</p>
         )}
       </div>
     </div>

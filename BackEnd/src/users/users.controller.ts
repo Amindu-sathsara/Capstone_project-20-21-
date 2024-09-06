@@ -30,8 +30,8 @@ findAll(@Query('userType') userType?:'DOCTOR'|'PARENT'){    //This Api also no n
 }*/
     //Get all users
     @Get()
-    findAll() {
-    return this.usersService.findAll();
+    async findAll() {
+    const d=await this.usersService.findAll();
     }
 
 
@@ -43,8 +43,13 @@ findAll(@Query('userType') userType?:'DOCTOR'|'PARENT'){    //This Api also no n
 
     //second attempt to get single user   ()
     @Get('findone')
+<<<<<<< HEAD
     findOne(@Query(ValidationPipe) findUserDto: FindUserDto) {
     return this.usersService.findOne(findUserDto);
+=======
+    async findOne(@Body(ValidationPipe) findUserDto: FindUserDto) {
+    const e =await this.usersService.findOne(findUserDto);
+>>>>>>> e885725feb44e682f83093ae5b5c992693c5849b
 }
 
 
@@ -53,8 +58,13 @@ findAll(@Query('userType') userType?:'DOCTOR'|'PARENT'){    //This Api also no n
 
     //create new user  
     @Post()
+<<<<<<< HEAD
     async Create(@Body(ValidationPipe) createUserDto:CreateUserDto){
     return await this.usersService.create(createUserDto);
+=======
+    async create(@Body(ValidationPipe) createUserDto:CreateUserDto){
+    const f=await this.usersService.create(createUserDto);
+>>>>>>> e885725feb44e682f83093ae5b5c992693c5849b
 }
 
 
@@ -72,15 +82,21 @@ findAll(@Query('userType') userType?:'DOCTOR'|'PARENT'){    //This Api also no n
 
 
     //update users with finding relavant user from userName and nicNo
+<<<<<<< HEAD
     @Patch('updateuser')
     update(@Body(ValidationPipe) updateUserDto: UpdateUserDto) {
     return this.usersService.update(updateUserDto);
+=======
+    @Put('updateuser')
+    async update(@Body(ValidationPipe) updateUserDto: UpdateUserDto) {
+    const g=await this.usersService.update(updateUserDto);
+>>>>>>> e885725feb44e682f83093ae5b5c992693c5849b
     }
 
     //Delete one user from user: fullName and nicNo
     @Delete('deleteuser')
-    delete(@Body(ValidationPipe) deleteUserDto: DeleteUserDto) {
-    return this.usersService.delete(deleteUserDto);
+    async delete(@Body(ValidationPipe) deleteUserDto: DeleteUserDto) {
+    const h=await this.usersService.delete(deleteUserDto);
   }
     
 

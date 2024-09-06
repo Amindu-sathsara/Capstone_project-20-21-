@@ -1,0 +1,57 @@
+.deletion-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f1eeee;
+    padding: 20px;
+  }
+  
+  .deletion-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .deletion-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .deletion-description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .deletion-form {
+    margin-bottom: 30px;
+  }
+  
+  .deletion-warning {
+    font-size: 14px;
+    color: #e74c3c;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 600px) {
+    .deletion-container {
+      padding: 30px 20px;
+    }
+  
+    .deletion-title {
+      font-size: 24px;
+    }
+  
+    .deletion-description {
+      font-size: 14px;
+    }
+  }

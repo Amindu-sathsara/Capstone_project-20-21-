@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../createChildForm/cCcreate.css';
+import '../../seeDetails/SeeDetailsForm.css';
 import { useNavigate } from 'react-router-dom';
 
 export default function ChildGetDetailsForm() {
@@ -44,27 +44,28 @@ export default function ChildGetDetailsForm() {
   };
 
   return (
-    <div className='container'>
-      <div className='cover'>
-      <br/><h3 className='text'>See Details Of Child</h3><br/>
+    <div className='see-details-container'>
+      <div className='see-details-card'>
+      <br/><h3 className='see-details-title'>See Details Of Child</h3>
 
-        <form className='box' onSubmit={handleSubmit}>
+        <form className='see-details-form' onSubmit={handleSubmit}>
           
-          <label className='ftext' htmlFor='name'>Full Name :</label><br/>
-          <input className='fbox' id='n' type='text' placeholder='Enter Full Name' value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          <div className='form-group'>
+          <label  htmlFor='name'>Full Name :</label>
+          <input  id='fullName' type='text' placeholder='Enter Full Name' value={fullName} onChange={(e) => setFullName(e.target.value)} />
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
-          <br/>
+          </div>
           
-          <label className='ftext' htmlFor='nicNo'>Parent NIC:</label><br/>
-          <input className='fbox' id='n' type='text' placeholder='Enter NIC' value={parentNic} onChange={(e) => setParentNic(e.target.value)} />
+          <div className='form-group'>
+          <label  htmlFor='nicNo'>Parent NIC:</label>
+          <input  id='nic' type='text' placeholder='Enter NIC' value={parentNic} onChange={(e) => setParentNic(e.target.value)} />
           {errors.parentNic && <span className='error'>{errors.parentNic}</span>}
-          <br/>
+          </div>
+         
+          <button type='submit' className='submit-button' onClick={handleSubmit}>See Details</button>
+  
       
-        </form>
-
-        <div className='Button'>
-          <button type='submit' className='buton' onClick={handleSubmit}>See Details</button>
-       </div>
+        </form> 
         <br/>
         {childDetails && (
           <div className='user-details'>

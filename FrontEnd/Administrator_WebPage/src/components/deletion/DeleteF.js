@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import '../create/signup.css';
 import axios from 'axios';
-import '../../components/button/button.css';
+import './DeleteAccountForm.css';
 
-export default function Signup() {
+export default function DeleteF() {
   const [fullName, setFullName] = useState('');
   const [nicNo, setNicNo] = useState('');
   const [errors, setErrors] = useState({});
@@ -34,7 +33,7 @@ export default function Signup() {
         });
 
         console.log('Account deleted successfully:', response.data);
-        alert('Account Deleted Succussfully');
+        alert('Account Deleted Successfully');
 
         // Clear the form fields after successful deletion
         setFullName('');
@@ -46,42 +45,37 @@ export default function Signup() {
   };
 
   return (
-    <div className='container'>
-      <div className='cover'>
-        <br />
-        <h3 className='text'>Delete User's Accounts</h3>
-        <br />
-        <form className='box' onSubmit={handleSubmit}>
-          <label className='ftext' htmlFor='name'>Full Name :</label><br/>
-          <input
-            className='fbox'
-            id='n'
-            type='text'
-            placeholder='Enter Full Name'
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-          {errors.fullName && <span className='error'>{errors.fullName}</span>}
-          <br />
-
-          <label className='ftext' htmlFor='nic'>NIC No:</label><br/>
-          <input
-            className='fbox'
-            id='n'
-            type='text'
-            placeholder='Enter NIC'
-            value={nicNo}
-            onChange={(e) => setNicNo(e.target.value)}
-          />
-          {errors.nicNo && <span className='error'>{errors.nicNo}</span>}
-          <br />
-
-          <div>
-            <button type='submit' className='buton'>
-              Delete
-            </button>
+    <div className="delete-account-container">
+      <div className="delete-account-card">
+        <h2 className="delete-account-title">Delete User's Account</h2>
+        <form className="delete-account-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="fullName">Full Name:</label>
+            <input
+              id="fullName"
+              type="text"
+              placeholder="Enter Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+            {errors.fullName && <span className="error">{errors.fullName}</span>}
           </div>
-          <br/>
+
+          <div className="form-group">
+            <label htmlFor="nicNo">NIC No:</label>
+            <input
+              id="nicNo"
+              type="text"
+              placeholder="Enter NIC"
+              value={nicNo}
+              onChange={(e) => setNicNo(e.target.value)}
+            />
+            {errors.nicNo && <span className="error">{errors.nicNo}</span>}
+          </div>
+
+          <button type="submit" className="delete-button">
+            Delete Account
+          </button>
         </form>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../create/signup.css';
 import axios from 'axios';
-import '../button/button.css';
+import './uForm.css'
 
 export default function UpdateUserForm({ user }) {  // Accept `user` as a prop
 
@@ -79,52 +79,62 @@ export default function UpdateUserForm({ user }) {  // Accept `user` as a prop
   };
 
   return (
-    <div className='container'>
-      <div className='cover'>
-      <br/><h3 className='text'>Update Details Of User's</h3><br/>
-        <form className='box' onSubmit={handleSubmit}>
-
-          <label className='ftext' htmlFor='name'>Full Name :</label> <br/>
-          <input className='fbox' id='n' type='text' placeholder='Enter Full Name' value={fullName} onChange={(e) => setFullName(e.target.value)} />
+    <div className='see-details-container'>
+      <div className='see-details-card'>
+      <br/><h3 className='see-details-title'>Update Details Of User's</h3><br/>
+        <form className='see-details-form' onSubmit={handleSubmit}>
+         <div className='form-group'>
+          <label htmlFor='name'>Full Name :</label> 
+          <input id='fullName' type='text' placeholder='Enter Full Name' value={fullName} onChange={(e) => setFullName(e.target.value)} />
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
           <br />
+          </div>
 
-          <label className='ftext' htmlFor='number'>NIC No:</label> <br/>
-          <input className='fbox' id='n' type='number' placeholder='Enter NIC' value={nicNo} onChange={(e) => setNicNo(e.target.value)} />
+          <div className='form-group'>
+          <label htmlFor='number'>NIC No:</label> 
+          <input  id='NIC' type='number' placeholder='Enter NIC' value={nicNo} onChange={(e) => setNicNo(e.target.value)} />
           {errors.nicNo && <span className='error'>{errors.nicNo}</span>}
           <br />
-
-          <label className='ftext' htmlFor='email'>Email :</label> <br/>
-          <input className='fbox' id='n' type='text' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)} />
+          </div>
+         
+          <div className='form-group'>
+          <label htmlFor='email'>Email :</label> 
+          <input  id='email' type='text' placeholder='Enter Email' value={email} onChange={(e) => setEmail(e.target.value)} />
           {errors.email && <span className='error'>{errors.email}</span>}
           <br />
+          </div>
 
-          <label className='ftext' htmlFor='contactNo'>Contact No :</label> <br/>
-          <input className='fbox' id='n' type='number' placeholder='Enter Number' value={contactNo} onChange={(e) => setContactNo(e.target.value)} />
+          <div className='form-group'>
+          <label htmlFor='contactNo'>Contact No :</label> 
+          <input  id='contactNo' type='number' placeholder='Enter Number' value={contactNo} onChange={(e) => setContactNo(e.target.value)} />
           {errors.contactNo && <span className='error'>{errors.contactNo}</span>}
           <br />
-
-          <label className='ftext'>User Type :</label> <br/>
-          <select className="fbox" id='n' value={userType} onChange={(e) => setUserType(e.target.value)}>
+          </div>
+          
+          <div className='form-group'>
+          <label >User Type :</label> 
+          <select  id='userType' value={userType} onChange={(e) => setUserType(e.target.value)}>
             <option value="PARENT">PARENT</option>
             <option value="DOCTOR">DOCTOR</option>
           </select>
           {errors.userType && <span className='error'>{errors.userType}</span>}
           <br />
+        
+          </div>
 
-          <label className='ftext' htmlFor='userName'>UserName :</label> <br/>
-          <input className='fbox' id='n' type='text' placeholder='Enter UserName' value={userName} onChange={(e) => setUserName(e.target.value)} />
+          <div className='form-group'>
+          <label  htmlFor='userName'>UserName :</label> 
+          <input  id='userName' type='text' placeholder='Enter UserName' value={userName} onChange={(e) => setUserName(e.target.value)} />
           {errors.userName && <span className='error'>{errors.userName}</span>}
           <br />
-
-          <label className='ftext' htmlFor='password'>Password :</label> <br/>
-          <input className='fbox' id='n' type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
+          </div>
+          <div className='form-group'>
+          <label  htmlFor='password'>Password :</label> 
+          <input  id='password' type='password' placeholder='Enter Password' value={password} onChange={(e) => setPassword(e.target.value)} />
           {errors.password && <span className='error'>{errors.password}</span>}
-
-          <div>
-            <button type='submit' className='buton'>Update</button>
           </div>
           <br/>
+            <button type='submit' className='submit-button'>Update</button>
         </form>
       </div>
     </div>

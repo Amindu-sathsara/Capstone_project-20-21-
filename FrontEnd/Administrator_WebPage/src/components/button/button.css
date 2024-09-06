@@ -1,13 +1,10 @@
 .buton{
     width: 190px;
-    background-color: rgb(11, 163, 84);
-    height: 50px;
+    height: 40px;
     border-radius: 10px;
     margin-top: 40px;
     padding-bottom: 10px 20px;
-    font-size: 19px;
-    border-width:10px;
-    border-color: rgb(5, 154, 50);
-    margin-left: 34%;
+    font-size: 16px;
+    margin-right: 19px;
     }
     

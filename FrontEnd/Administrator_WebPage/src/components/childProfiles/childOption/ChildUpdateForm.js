@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../../create/signup.css';
-import '../createChildForm/cCcreate.css';
+import '../../seeDetails/SeeDetailsForm.css';
 import axios from 'axios';
 
 
@@ -89,10 +89,12 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
   };
 
   return (
-    <div className='container'>
-      <div className='cover'>
-      <br/><h3 className='text'>Update Child's Profile</h3><br/>
-        <form className='box' onSubmit={handleSubmit}>
+    <div className='see-details-container'>
+      <div className='see-details-card'>
+      <br/><h3 className='see-details-title'>Update Child's Profile</h3><br/>
+        <form className='see-details-form' onSubmit={handleSubmit}>
+
+        <div className="form-group">
           <label className='ftext' htmlFor='name'>Full Name :</label><br/>
           <input
             className='fbox'
@@ -103,8 +105,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setFullName(e.target.value)}
           />
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='gender'>Gender :</label><br/>
           <select
             className='fbox'
@@ -117,8 +120,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             <option value='Female'>Female</option>
           </select>
           {errors.gender && <span className='error'>{errors.gender}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='birthDate'>Birth Date :</label><br/>
           <input
             className='fbox'
@@ -128,8 +132,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setBirthDate(e.target.value)}
           />
           {errors.birthDate && <span className='error'>{errors.birthDate}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='birthPlace'>Birth Place :</label><br/>
           <input
             className='fbox'
@@ -140,8 +145,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setBirthPlace(e.target.value)}
           />
           {errors.birthPlace && <span className='error'>{errors.birthPlace}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='weight'>Birth Weight :</label><br/>
           <input
             className='fbox'
@@ -152,8 +158,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setBirthWeight(e.target.value)}
           />
           {errors.birthdayWeight && <span className='error'>{errors.birthdayWeight}</span>}
-          <br />
-
+          </div>
+ 
+          <div className="form-group">
           <label className='ftext' htmlFor='height'>Birth Height :</label><br/>
           <input
             className='fbox'
@@ -164,8 +171,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setBirthHeight(e.target.value)}
           />
           {errors.birthdayHeight && <span className='error'>{errors.birthdayHeight}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='allergies'>Allergies :</label><br/>
           <input
             className='fbox'
@@ -176,8 +184,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setAlergies(e.target.value)}
           />
           {errors.allergies && <span className='error'>{errors.allergies}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='medicalRecords'>Medical Records :</label><br/>
           <input
             className='fbox'
@@ -188,8 +197,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setMedicalRecords(e.target.value)}
           />
           {errors.medicalRecords && <span className='error'>{errors.medicalRecords}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='bornDiseases'>Born Diseases :</label><br/>
           <input
             className='fbox'
@@ -200,8 +210,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setBornDiseases(e.target.value)}
           />
           {errors.bornDiseases && <span className='error'>{errors.bornDiseases}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='vaccinesGiven'>Vaccines Given :</label><br/>
           <input
             className='fbox'
@@ -212,8 +223,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setVaccinesGiven(e.target.value)}
           />
           {errors.vaccinesGiven && <span className='error'>{errors.vaccinesGiven}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='vaccinesToBeGiven'>Vaccines to Be Given :</label><br/>
           <input
             className='fbox'
@@ -224,8 +236,9 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setVaccinesToBeGiven(e.target.value)}
           />
           {errors.vaccinesToBeGiven && <span className='error'>{errors.vaccinesToBeGiven}</span>}
-          <br />
+          </div>
 
+          <div className="form-group">
           <label className='ftext' htmlFor='parentNic'>Parent NIC :</label><br/>
           <input
             className='fbox'
@@ -236,11 +249,10 @@ export default function ChildUpdateForm({ child }) {  // Accept `user` as a prop
             onChange={(e) => setParentNic(e.target.value)}
           />
           {errors.parentNic && <span className='error'>{errors.parentNic}</span>}
-          <br />
-
-          <div className='Button'>
-            <button type='submit' className='buton'>Update</button>
           </div>
+
+            <button type='submit' className='submit-button'>Update</button>
+        
         </form>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import '../../create/signup.css';
+import '../../seeDetails/SeeDetailsForm.css';
 import axios from 'axios';
-import '../../../components/button/button.css';
+
 
 export default function ChildDeleteForm() {
   const [fullName, setFullName] = useState('');
@@ -48,15 +48,17 @@ export default function ChildDeleteForm() {
   };
 
   return (
-    <div className='container'>
-      <div className='cover'>
+    <div className='see-details-container'>
+      <div className='see-details-card'>
         <br />
-        <h3 className='text'>Delete User's Accounts</h3>
+        <h3 className='see-details-title'>Delete User's Accounts</h3>
         <br />
-        <form className='box' onSubmit={handleSubmit}>
-          <label className='ftext' htmlFor='name'>Full Name :</label><br/>
+        <form className='see-details-form' onSubmit={handleSubmit}>
+
+          <div className='form-group'>
+          <label className='ftext' htmlFor='name'>Full Name :</label>
           <input
-            className='fbox'
+            
             id='n'
             type='text'
             placeholder='Enter Full Name'
@@ -64,26 +66,27 @@ export default function ChildDeleteForm() {
             onChange={(e) => setFullName(e.target.value)}
           />
           {errors.fullName && <span className='error'>{errors.fullName}</span>}
-          <br />
+          </div>
 
-          <label className='ftext' htmlFor='nic'>Parent NIC:</label><br/>
+          <div className='form-group'>
+          <label className='ftext' htmlFor='nic'>Parent NIC:</label>
           <input
-            className='fbox'
-            id='n'
+            
+            id='NIC'
             type='text'
             placeholder='Enter NIC'
             value={parentNic}
             onChange={(e) => setParentNic(e.target.value)}
           />
           {errors.nicNo && <span className='error'>{errors.parentNic}</span>}
-          <br />
-
-          <div>
-            <button type='submit' className='buton'>
-              Delete
-            </button>
           </div>
           <br/>
+          
+            <button type='submit' className='submit-button'>
+              Delete
+            </button>
+          
+          
         </form>
       </div>
     </div>

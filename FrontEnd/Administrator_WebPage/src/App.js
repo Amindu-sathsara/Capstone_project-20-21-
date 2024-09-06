@@ -12,6 +12,9 @@ import ChildUpdate from "./pages/childOptionForms/ChildUpdate";
 import ChildGetDetails from "./pages/childOptionForms/ChildGetDetails";
 import UserDetailsPage from "./pages/getDetailsForm/UserDetailsPage";
 import ChildDetails from "./pages/childOptionForms/ChildDetails";
+import About from "./pages/navPages/About";
+import ContactUs from "./pages/navPages/contactUs/ContactUs";
+import LearnMore from "./pages/learnMore/LearnMore";
 
 
 
@@ -35,6 +38,9 @@ function App() {
       <Route path="/cGetDetails" element={<ChildGetDetails/>}/>
       <Route path="/user-details" element={<UserDetailsPage/>}/>
       <Route path="/child-details" element={<ChildDetails/>}/>
+      <Route path="/about" element={<About/>}/>
+      <Route path="/contact" element={<ContactUs/>}/>
+      <Route path="/learnMore" element={<LearnMore/>}/>
     </Routes>
   </BrowserRouter>
   );

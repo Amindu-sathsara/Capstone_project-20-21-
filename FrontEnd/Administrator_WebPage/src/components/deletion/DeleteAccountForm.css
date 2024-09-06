@@ -1,6 +1,6 @@
 :root {
     --primary-color: #3498db;
-    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
     --text-color: #333;
     --background-color: #f5f5f5;
     --card-background: #ffffff;
@@ -18,7 +18,7 @@
     padding: 0;
   }
   
-  .see-details-container {
+  .delete-account-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -26,29 +26,29 @@
     padding: 20px;
   }
   
-  .see-details-card {
+  .delete-account-card {
     background-color: var(--card-background);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
     padding: 2rem;
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
   }
   
-  .see-details-title {
+  .delete-account-title {
     color: var(--primary-color);
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin-bottom: 1.5rem;
     text-align: center;
   }
   
-  .see-details-form {
+  .delete-account-form {
     display: flex;
     flex-direction: column;
   }
   
   .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
   }
   
   .form-group label {
@@ -79,8 +79,8 @@
     margin-top: 0.25rem;
   }
   
-  .submit-button {
-    background-color: var(--secondary-color);
+  .delete-button {
+    background-color: var(--danger-color);
     color: white;
     border: none;
     border-radius: 4px;
@@ -90,43 +90,26 @@
     transition: background-color 0.3s ease;
   }
   
-  .submit-button:hover {
-    background-color: #27ae60;
+  .delete-button:hover {
+    background-color: #c0392b;
   }
   
-  .submit-button:focus {
+  .delete-button:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(46, 204, 113, 0.4);
+    box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.4);
   }
   
-  .user-details {
-    margin-top: 2rem;
-    padding: 1rem;
-    background-color: var(--input-background);
-    border-radius: 4px;
-  }
-  
-  .user-details h3 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-  }
-  
-  .user-details p {
-    margin-bottom: 0.5rem;
-  }
-  
-  @media (max-width: 600px) {
-    .see-details-card {
+  @media (max-width: 480px) {
+    .delete-account-card {
       padding: 1.5rem;
     }
   
-    .see-details-title {
-      font-size: 1.5rem;
+    .delete-account-title {
+      font-size: 1.25rem;
     }
   
     .form-group input,
-    .submit-button {
+    .delete-button {
       padding: 0.625rem;
     }
-    
   }

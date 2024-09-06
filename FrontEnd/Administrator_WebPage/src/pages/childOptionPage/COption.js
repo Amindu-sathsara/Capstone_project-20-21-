@@ -25,18 +25,17 @@ export default function COption() {
     <div>
         <Upside title='Other Options in Child Profiles' upside='blue'/>
     </div>
-
-<div className='view'>
-<div onClick={goToUpdate}>
+<div className="option-boxes-container">
+<div className='box' onClick={goToUpdate}>
 <ChangePBox title='Update Child Profile' para1='Update information in Child Profile'
 para2='and Edit the details'/>
 </div>
 
-<div className='getbox' onClick={goToGetDetails}>
+<div className='box' onClick={goToGetDetails}>
 <ChangePBox title='Get Child Details' para1='Can get user details' para2='and see informations'/>
 </div>
 
-<div className='deletebox' onClick={goToDelete}>
+<div className='box' onClick={goToDelete}>
 <ChangePBox title='Delete Child Profile' para1='Delete user Accounts' para2='and change the access'/>
 </div>
 </div> 

@@ -29,21 +29,21 @@ export default function ChangeP() {
       <div>
         <Upside title='Change Permission and Access'/>
       </div>
-    <div className='view'>
-      <div onClick={goToUpdate}>
+      <div className="option-boxes-container">
+      <div className='box' onClick={goToUpdate}>
      <ChangePBox title='Update User Account' para1='Update user Account'
       para2='and Edit the details'/>
     </div>
 
-    <div className='getbox' onClick={goToDetails}>
+    <div className='box' onClick={goToDetails}>
       <ChangePBox title='Get Details' para1='Can get user details' para2='and see informations'/>
     </div>
 
-    <div className='deletebox' onClick={goToDelete}>
+    <div className='box' onClick={goToDelete}>
       <ChangePBox title='Delete Account' para1='Delete user Accounts' para2='and change the access'/>
     </div>
     </div> 
-
+    
     </div>
   )
 }
