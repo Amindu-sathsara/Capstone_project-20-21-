@@ -84,6 +84,20 @@ export class UsersService {
         return user;
     }
 
+     // Find a user by username
+  async findUserByName(userName: string):Promise<any> {
+    return this.prisma.user.findUnique({
+      where: { userName },  // Search user by username
+    });
+  }
+  
+
+  // Find a user by their nicNo
+  async findUserByParentNic(nicNo: string): Promise<any> {
+    return this.prisma.user.findFirst({
+      where: { nicNo },
+    });
+  }
 
     
     //Method for creating new user
@@ -112,7 +126,7 @@ export class UsersService {
         return newUser;
     }*/
 
-    //using chagpt I have been created user APIs 
+    //succesfull second attempt: have been created user APIs 
     async create(createUserDto: CreateUserDto) {
         try {
           // Check if user with the same userName already exists
@@ -131,7 +145,7 @@ export class UsersService {
         } catch (error) {
           // Log the error and throw a specific error message
           console.error('Error creating user:', error.message || error);
-          throw new Error(error.message || 'Can not create user with provided details ');
+          throw new Error(error.message || 'Internal Server Error');
         }
       }
       
