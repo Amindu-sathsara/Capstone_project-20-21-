@@ -6,5 +6,8 @@ export class SignInUserDto {
 
     @IsNotEmpty()
     nicNo: string;
+
+    @IsNotEmpty()
+    userType: string;
   }
   

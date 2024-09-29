@@ -9,6 +9,9 @@ export class AuthorizedUserResultDto {
     
     @IsNotEmpty()
     userName: string;
+
+    @IsNotEmpty()
+    userType: string;
   }
 
   

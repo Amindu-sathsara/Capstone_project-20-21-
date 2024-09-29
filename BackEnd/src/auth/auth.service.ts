@@ -22,6 +22,7 @@ export class AuthService {
       return {
         nicNo: user.nicNo,  // MongoDB ObjectId
         userName: user.userName,
+        userType: user.userType,  
       };
     }
     return null;
@@ -41,10 +42,11 @@ export class AuthService {
     const tokenPayloadData = {
       sub: user.nicNo,  // MongoDB ObjectId
       userName: user.userName,
+      userType: user.userType,
     };
 
     const accessToken = await this.jwtService.signAsync(tokenPayloadData);
-    return { accessToken, nicNo: user.nicNo, userName: user.userName };
+    return { accessToken, nicNo: user.nicNo, userName: user.userName,userType:user.userType };
   }
 
   // Protected API for fetching full user details based on userId
