@@ -4,6 +4,8 @@ import { JwtService } from '@nestjs/jwt';
 import { LoginUserDto } from './dto/login-user.dto';
 import {SignInUserDto} from './dto/signInData-user.dto';
 import {AuthorizedUserResultDto} from './dto/Authorized-userResullt.dto';
+import { UserDto } from './dto/user.dto';
+
 
 @Injectable()
 export class AuthService {
@@ -52,7 +54,15 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException(`User with userId ${nicNo} not found`);
     }
-
-    return user;  // Returning full user details
+    const u= new UserDto();
+    u.id = user.id;
+    u.fullName = user.fullName;
+    u.nicNo = user.nicNo;
+    u.email = user.email;
+    u.contactNo = user.contactNo;
+    u.userType = user.userType;
+    u.userName = user.userName;
+    return u;
+    //return user;  // Returning full user details
   }
 }
