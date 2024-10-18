@@ -93,10 +93,17 @@ export class UsersService {
   
 
   // Find a user by their nicNo
-  async findUserByParentNic(nicNo: string): Promise<any> {
+  async findUserBynicNo(nicNo: string): Promise<any> {
     return this.prisma.user.findFirst({
       where: { nicNo },
     });
+  }
+
+  // Find a user by email
+  async findUserByEmail(email:string):Promise<any>{
+    return this.prisma.user.findFirst({
+      where:{email}
+    })
   }
 
     
@@ -273,4 +280,14 @@ export class UsersService {
     
         return { message: 'User successfully deleted' };
       }
+
+      //User service logic for update user password
+      async updateUserPassword(userName: string, newHashedPassword: string): Promise<void> {
+        await this.prisma.user.update({
+          where: { userName: userName, },
+          data: { password: newHashedPassword },
+        });
+      }
+
+
 }
