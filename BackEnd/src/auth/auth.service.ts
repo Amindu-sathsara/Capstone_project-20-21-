@@ -5,7 +5,7 @@ import { LoginUserDto } from './dto/login-user.dto';
 import {SignInUserDto} from './dto/signInData-user.dto';
 import {AuthorizedUserResultDto} from './dto/Authorized-userResullt.dto';
 import { UserDto } from './dto/user.dto';
-
+import { UserNameDto } from './dto/user-name.dto';
 
 // import * as bcrypt from 'bcrypt'; =>>>>👀👀👀👀👀 Dilshan ayye mentioned few times : Make sure to bcrypt password before save password in the database 
 
@@ -134,24 +134,63 @@ export class AuthService {
     }
   }
 
-
-
-  // Protected API for fetching full user details based on userId
+    // Protected API for fetching full user details based on userId
   async getUserDetails(nicNo: string): Promise<any> {
     const user = await this.userService.findUserBynicNo(nicNo);
 
     if (!user) {
       throw new UnauthorizedException(`User with userId ${nicNo} not found`);
     }
-    const u= new UserDto();
-    u.id = user.id;
-    u.fullName = user.fullName;
-    u.nicNo = user.nicNo;
-    u.email = user.email;
-    u.contactNo = user.contactNo;
-    u.userType = user.userType;
-    u.userName = user.userName;
-    return u;
+    const userAllDetail= new UserDto();
+    userAllDetail.id = user.id;
+    userAllDetail.fullName = user.fullName;
+    userAllDetail.nicNo = user.nicNo;
+    userAllDetail.email = user.email;
+    userAllDetail.contactNo = user.contactNo;
+    userAllDetail.userType = user.userType;
+    userAllDetail.userName = user.userName;
+    return userAllDetail;
     //return user;  // Returning full user details
   }
+
+  // Al the service method that only relying the user  collection only 
+
+  //Service method for get Doctor name 
+  async getDoctorDetails(nicNo: string): Promise<any> {
+    const user = await this.userService.findUserByNic(nicNo);
+
+    if (!user) {
+      throw new UnauthorizedException(`User with userId ${nicNo} not found`);
+    }
+    const currentDoctorName= new UserNameDto();
+    
+    currentDoctorName.fullName = user.fullName;
+    currentDoctorName.userType = user.userType;
+
+    return currentDoctorName; // Returning current Doctor that particular Doctor login to the app
+    
+  }
+  //Service method for get parent name
+  //Service method for get Doctor name 
+  async getParentDetails(nicNo: string): Promise<any> {
+    const user = await this.userService.findUserByNic(nicNo);
+
+    if (!user) {
+      throw new UnauthorizedException(`User with userId ${nicNo} not found`);
+    }
+    const currentDoctorName= new UserNameDto();
+    
+    currentDoctorName.fullName = user.fullName;
+    currentDoctorName.userType = user.userType;
+
+    return currentDoctorName; // Returning current Doctor that particular Doctor login to the app
+    
+  }
+
+
+
+    
+
+
+  
 }

@@ -146,9 +146,9 @@ If user needs to change password then the userName ,current password and new pas
 1.Display Date 
 
 2.Display doctor name :
-(Get route with that return Doctor full name )
+(Get route with that return Doctor full name )-Done☑️
 
-👀
+👀 localhost:3000/auth/doctor-name
 
 3.Get request for getting childProfiles from  full name
 

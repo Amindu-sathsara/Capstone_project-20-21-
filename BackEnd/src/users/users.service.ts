@@ -90,6 +90,13 @@ export class UsersService {
       where: { userName },  // Search user by username
     });
   }
+
+    //Find the user by user nicNo
+    async findUserByNic(nicNo: string): Promise<any> {
+      return this.prisma.user.findFirst({
+        where: { nicNo },
+      })
+    }
   
 
   // Find a user by their nicNo

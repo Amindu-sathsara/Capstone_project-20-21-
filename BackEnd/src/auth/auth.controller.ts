@@ -72,4 +72,26 @@ async resetPassword(
     console.log('Extracted userId:', nicNo);  // Log the extracted userId for debugging
     return this.authService.getUserDetails(nicNo);  // Fetch full user details by userId
   }
+    // all the end points that only related to the user only and without relying on the details of the child profiles 
+   
+  //Get request end point for current doctor name  - only for the doctor type user
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('DOCTOR')
+  @Get('doctor-name')
+  async getDoctorDetails(@Request() request) {
+  const nicNo = request.user.sub;  
+  console.log('Extracted user nicNo', nicNo);  // this is related to the debugging purpose only to make sure 
+  return this.authService.getDoctorDetails(nicNo);  // Fetch current userName
+}
+
+//Get request end point for current parent name -only for the parent type user
+  @UseGuards(AuthGuard, RolesGuard)
+  @Roles('PARENT')
+  @Get('parent-name')
+  async getParentDetails(@Request() request) {
+  const nicNo = request.user.sub;  
+  console.log('Extracted user nicNo', nicNo);  // this is related to the debugging purpose only to make sure 
+  return this.authService.getParentDetails(nicNo);  // Fetch current userName
+}
+
 }
