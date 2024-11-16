@@ -4,7 +4,7 @@ import { AuthService } from './auth.service';
 import { UsersModule } from 'src/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JWT_SECRET } from './configs/jwt-secret';
-
+import { ChildProfileModule } from 'src/child-profile/child-profile.module';
 
 
 
@@ -14,10 +14,10 @@ import { JWT_SECRET } from './configs/jwt-secret';
 
   //Import Users Module
   imports: [
-    UsersModule,
+    UsersModule,ChildProfileModule,
   JwtModule.register({
     secret:JWT_SECRET,
-    signOptions: { expiresIn: '10m' }, // 1 hour token expiration
+    signOptions: { expiresIn: '10m' }, // 10 min token expiration
 
   })]
 })

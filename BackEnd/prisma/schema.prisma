@@ -14,35 +14,35 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  fullName  String
-  nicNo     String   @unique
-  email     String   
-  contactNo String   @unique
-  userType  String
-  userName  String   @unique
-  password  String    @unique
-  
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  fullName     String
+  nicNo        String         @unique
+  email        String   
+  contactNo    String         @unique
+  userType     String
+  userName     String         @unique
+  password     String         @unique
 
+  childProfiles childProfile[] @relation("UserToChildProfile") // Define a named relation
 }
 
 model childProfile {
-  id  String @id @default(auto()) @map("_id") @db.ObjectId
-  fullName String @unique
-  gender String
-  birthDate String
-  birthPlace String
-  birthWeight String
-  birthHeight String
-  alergies String?
-  bornDiseases String?
-  medicalRecords String?
-  vaccinesGiven String
+  id               String  @id @default(auto()) @map("_id") @db.ObjectId
+  fullName         String  @unique
+  gender           String
+  birthDate        String
+  birthPlace       String
+  birthWeight      String
+  birthHeight      String
+  alergies         String?
+  bornDiseases     String?
+  medicalRecords   String?
+  vaccinesGiven    String
   vaccinesToBeGiven String
-  parentNic String @unique
-  
-} 
+  parentNic        String  // This will reference User's nicNo
 
+  parent           User?   @relation("UserToChildProfile", fields: [parentNic], references: [nicNo])
+}
 
 
 

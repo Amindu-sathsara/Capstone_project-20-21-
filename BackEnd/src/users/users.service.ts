@@ -1,19 +1,22 @@
+//import { UserChildProfileDto } from './../auth/dto/user-child-profile.dto';
 import { PrismaClient } from '@prisma/client';
 //import { CreateUserDto } from './../dto/user.dto';
 //import { InjectRepository } from '@nestjs/typeorm';
 //import { Repository } from 'typeorm';
 import { Injectable,NotFoundException } from '@nestjs/common';
 //import { PrismaService } from 'src/prisma/prisma.service';
+import { ChildProfileService } from 'src/child-profile/child-profile.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import {UpdateUserDto } from './dto/update-user.dto';
 import { FindUserDto } from './dto/find-user.dto';
 import { DeleteUserDto } from './dto/delete-user.dto';
-
+import { UserChildProfileDto } from 'src/auth/dto/user-child-profile.dto';
 
 @Injectable()
 export class UsersService {
     //constructor(private readonly prisma: PrismaService) {}
     private prisma = new PrismaClient();
+    private childProfileService: ChildProfileService;
     private users=[
         {
             id: 1,
@@ -90,23 +93,22 @@ export class UsersService {
       where: { userName },  // Search user by username
     });
   }
-
-    //Find the user by user nicNo
-    async findUserByNic(nicNo: string): Promise<any> {
-      return this.prisma.user.findFirst({
-        where: { nicNo },
-      })
-    }
   
 
   // Find a user by their nicNo
-  async findUserBynicNo(nicNo: string): Promise<any> {
+  async findUserByParentNic(nicNo: string): Promise<any> {
     return this.prisma.user.findFirst({
       where: { nicNo },
     });
   }
 
-  // Find a user by email
+  //Find the user by user nicNo
+  async findUserByNic(nicNo: string): Promise<any> {
+    return this.prisma.user.findFirst({
+      where: { nicNo },
+    })
+  }
+
   async findUserByEmail(email:string):Promise<any>{
     return this.prisma.user.findFirst({
       where:{email}
@@ -250,7 +252,7 @@ export class UsersService {
             // Update the user details
             return await this.prisma.user.update({
               where: {
-                id: user.id,
+                nicNo: user.nicNo,
               },
               data: updateUserDto,
             });
@@ -288,13 +290,58 @@ export class UsersService {
         return { message: 'User successfully deleted' };
       }
 
-      //User service logic for update user password
-      async updateUserPassword(userName: string, newHashedPassword: string): Promise<void> {
-        await this.prisma.user.update({
-          where: { userName: userName, },
-          data: { password: newHashedPassword },
-        });
+      // UsersService for update user's password
+async updateUserPassword(userName: string, newHashedPassword: string): Promise<void> {
+  await this.prisma.user.update({
+    where: { userName: userName, },
+    data: { password: newHashedPassword },
+  });
+}
+//.......................................................................................................
+   //From this onwards I just focus on creating user and childProfile APIs that include their basic relationships
+   async getUserWithChildProfiles(nicNo: string) {
+    // Check if nicNo is provided
+    if (!nicNo) {
+      throw new Error('There is no any child profile for the particular user');
+    }
+  
+    try {
+      // Find user by NIC number and include associated childProfiles
+      const user = await this.prisma.user.findUnique({
+        where: { nicNo },
+        include: { childProfiles: true },
+      });
+  
+      // Check if user exists
+      if (!user) {
+        throw new Error(`User with NIC number ${nicNo} not found.`);
       }
+  
+      // Check if user has any child profiles
+      /*if (user.childProfiles.length === 0) {
+        throw new Error(`User with NIC number ${nicNo} has no child profiles.`);
+      }*/
 
+      const UserWithChildProfile=new UserChildProfileDto();
+      UserWithChildProfile.id=user.id;
+      UserWithChildProfile.fullName=user.fullName;
+      UserWithChildProfile.nicNo=user.nicNo;
+      UserWithChildProfile.email=user.email;
+      UserWithChildProfile.contactNo=user.contactNo;
+      UserWithChildProfile.userType=user.userType;
+      UserWithChildProfile.childProfiles=user.childProfiles;
+  
+      // Return user with child profiles
+  
+      return UserWithChildProfile;
+    } catch (error) {
+      console.error('Error fetching user with child profiles:', error.message || error);
+      throw new Error(error.message || 'Failed to fetch user and child profiles.');
+    }
+  }
+  
 
 }
+
+
+

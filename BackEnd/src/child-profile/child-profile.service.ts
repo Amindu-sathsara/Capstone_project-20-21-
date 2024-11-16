@@ -83,8 +83,14 @@ export class ChildProfileService {
     async create(createChildProfileDto: CreateChildProfileDto) {
       try {
         // Check if the childProfile is  already exists ..
-        const existingChildProfile = await this.prisma.childProfile.findUnique({
+        /*const existingChildProfile = await this.prisma.childProfile.findUnique({
           where: { parentNic: createChildProfileDto.parentNic },
+        });*/
+        const existingChildProfile = await this.prisma.childProfile.findFirst({
+          where: {
+            parentNic: createChildProfileDto.parentNic,
+            fullName: createChildProfileDto.fullName,
+          },
         });
     
         if (existingChildProfile) {
@@ -162,6 +168,14 @@ export class ChildProfileService {
     });
 
     return { message: 'The relelvant childPrile is  successfully deleted' };
+  }
+
+
+  // From this onwards this contains both user+ childProfile relation APIs only ....
+  async findChildProfilesByParentNic(parentNic: string) {
+    return this.prisma.childProfile.findMany({
+      where: { parentNic },
+    });
   }
 }
 

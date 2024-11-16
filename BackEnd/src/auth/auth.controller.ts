@@ -1,6 +1,6 @@
-import { Controller, Post, Get, Body, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException,Put } from '@nestjs/common';
+import { Controller, Post, Get, Body, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException, Put } from '@nestjs/common';
 import { AuthService } from './auth.service';
-
+import { UsersService } from 'src/users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ChangeUserPasswordDto } from './dto/change-user-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
@@ -9,10 +9,12 @@ import { AuthGuard } from './guards/auth.guards';
 import { RolesGuard } from '../RBAC/guards/roles.guards';
 import { Roles } from 'src/RBAC/decorators/roles.decorator';
 
-
 @Controller('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+    constructor(
+      private authService: AuthService,
+      private userService: UsersService
+      ) {}
 
 
     //login endpoint for the users 
@@ -43,7 +45,7 @@ async changePassword(@Body() changeUserPasswordDto: ChangeUserPasswordDto, @Requ
 }
 
     //Public API for user's to create password if the password is forgot that given by hospital admin or that change by the user 
-  
+  @Roles('DOCTOR','PARENT')
   @Post('forgot-password')
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
     return this.authService.forgotPassword(forgotPasswordDto.email);
@@ -60,38 +62,49 @@ async resetPassword(
 
 
 
-    
-
     // Proctected Routes end Point for getting all the datails of users 
 
-    @UseGuards(AuthGuard)
-    @Roles('DOCTOR', 'PARENT')
+    @UseGuards(AuthGuard,RolesGuard)
+    @Roles( 'DOCTOR','PARENT')
     @Get('user-details')
     async getUserDetails(@Request() request) {
     const nicNo = request.user.sub;  // Extract userId from JWT payload
-    console.log('Extracted userId:', nicNo);  // Log the extracted userId for debugging
+    console.log('Extracted user nicNo', nicNo);  // Log the extracted userId for debugging
     return this.authService.getUserDetails(nicNo);  // Fetch full user details by userId
   }
-    // all the end points that only related to the user only and without relying on the details of the child profiles 
+
+  // all the end points that only related to the user only and without relying on the details of the child profiles 
    
   //Get request end point for current doctor name  - only for the doctor type user
   @UseGuards(AuthGuard, RolesGuard)
-  @Roles('DOCTOR')
-  @Get('doctor-name')
-  async getDoctorDetails(@Request() request) {
-  const nicNo = request.user.sub;  
-  console.log('Extracted user nicNo', nicNo);  // this is related to the debugging purpose only to make sure 
-  return this.authService.getDoctorDetails(nicNo);  // Fetch current userName
-}
+    @Roles('DOCTOR')
+    @Get('doctor-name')
+    async getDoctorDetails(@Request() request) {
+    const nicNo = request.user.sub;  
+    console.log('Extracted user nicNo', nicNo);  // this is related to the debugging purpose only to make sure 
+    return this.authService.getDoctorDetails(nicNo);  // Fetch current userName
+  }
 
-//Get request end point for current parent name -only for the parent type user
-  @UseGuards(AuthGuard, RolesGuard)
-  @Roles('PARENT')
-  @Get('parent-name')
-  async getParentDetails(@Request() request) {
-  const nicNo = request.user.sub;  
-  console.log('Extracted user nicNo', nicNo);  // this is related to the debugging purpose only to make sure 
-  return this.authService.getParentDetails(nicNo);  // Fetch current userName
-}
+  //Get request end point for current parent name -only for the parent type user
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles('PARENT')
+    @Get('parent-name')
+    async getParentDetails(@Request() request) {
+    const nicNo = request.user.sub;  
+    console.log('Extracted user nicNo', nicNo);  // this is related to the debugging purpose only to make sure 
+    return this.authService.getParentDetails(nicNo);  // Fetch current userName
+  }
 
+
+
+  //.........................................................................................
+  @UseGuards(AuthGuard) // Protect this endpoint
+  @Roles( 'PARENT')
+  @Get('parent-child-profiles')
+  async getUserChildProfiles(@Request() request) {
+          const { nicNo } = request.user; // Assuming JWT payload contains nicNo
+          return this.userService.getUserWithChildProfiles(nicNo);
+        }
+
+  
 }
