@@ -339,6 +339,13 @@ async updateUserPassword(userName: string, newHashedPassword: string): Promise<v
       throw new Error(error.message || 'Failed to fetch user and child profiles.');
     }
   }
+
+
+  //service method for get all the childprofile of Doctor
+  async getAllChildProfiles() {
+    return this.prisma.childProfile.findMany();
+    
+  }
   
 
 }

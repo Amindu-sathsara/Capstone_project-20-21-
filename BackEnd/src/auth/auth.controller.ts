@@ -98,6 +98,9 @@ async resetPassword(
 
 
   //.........................................................................................
+
+  //Get all the childprofile of particular parent 
+
   @UseGuards(AuthGuard) // Protect this endpoint
   @Roles( 'PARENT')
   @Get('parent-child-profiles')
@@ -105,6 +108,23 @@ async resetPassword(
           const { nicNo } = request.user; // Assuming JWT payload contains nicNo
           return this.userService.getUserWithChildProfiles(nicNo);
         }
+  
+  //Get all the child profile for doctor's - only for the doctor type user
+  @UseGuards(AuthGuard) 
+  @Roles('DOCTOR')
+  @Get('doctor-child-profiles')
+async getDoctorChildProfiles(@Request() request) {
+  const { userType } = request.user; // Extract userType from JWT payload
+
+  if (userType !== 'DOCTOR') {
+    return 'You are not registered as a , please contact our support team. or emai for kidscarehelpcenter@gmail.com';
+  }
+
+  return this.userService.getAllChildProfiles(); // Call service method to fetch all child profiles
+}
+
+
+  
 
   
 }
