@@ -1,18 +1,19 @@
 import React from 'react'
+import { ArrowRight, Shield, Clock, BarChartIcon as ChartBar, Users } from 'lucide-react'
 import './learnMore.css'
 
 export default function LearnMore() {
   return (
     <div className="learn-more-container">
       <header className="learn-more-header">
-        <h1>Learn More About KidsCare</h1>
-        <p>Simplifying and improving child healthcare management</p>
+        <h1>Discover KidsCare</h1>
+        <p>Revolutionizing Child Healthcare Management</p>
       </header>
 
       <section className="learn-more-content">
         <div className="intro">
           <p>
-            KidsCare is a cutting-edge platform designed to simplify and improve how child healthcare records are managed. With our system, both healthcare providers and parents can easily keep track of children's medical histories, vaccination schedules, and overall health progress.
+            KidsCare is an innovative platform designed to transform how child healthcare records are managed. Our system empowers both healthcare providers and parents to effortlessly monitor children's medical histories, vaccination schedules, and overall health progress.
           </p>
         </div>
 
@@ -20,57 +21,61 @@ export default function LearnMore() {
           <h2>Key Features of KidsCare</h2>
           <div className="feature-grid">
             <div className="feature-item">
-              <h3>Child Profile Management</h3>
-              <p>Create and manage detailed profiles for every child, including medical history, vaccination records, allergies, and other health-related information.</p>
+              <Shield className="feature-icon" />
+              <h3>Comprehensive Child Profiles</h3>
+              <p>Create and manage detailed health profiles for each child, including medical history, vaccinations, allergies, and more.</p>
             </div>
             <div className="feature-item">
-              <h3>Vaccination Schedules</h3>
-              <p>Track upcoming and past vaccinations to ensure that children receive timely immunizations, which are essential for their health and well-being.</p>
+              <Clock className="feature-icon" />
+              <h3>Smart Vaccination Tracking</h3>
+              <p>Stay on top of immunization schedules with automated reminders and real-time tracking of vaccination status.</p>
             </div>
             <div className="feature-item">
-              <h3>Medical History Overview</h3>
-              <p>Maintain a complete, error-free digital medical history for each child that healthcare providers can access instantly.</p>
+              <ChartBar className="feature-icon" />
+              <h3>Insightful Analytics</h3>
+              <p>Generate comprehensive reports on health trends, vaccination rates, and other crucial metrics for informed decision-making.</p>
             </div>
             <div className="feature-item">
-              <h3>Reports and Analytics</h3>
-              <p>Generate insightful reports on vaccination rates, healthcare trends, and other important data to help administrators make informed decisions.</p>
+              <Users className="feature-icon" />
+              <h3>Collaborative Care</h3>
+              <p>Foster seamless communication between healthcare providers and parents for coordinated and effective child care.</p>
             </div>
           </div>
         </div>
 
         <div className="how-it-works">
-          <h2>How It Works</h2>
+          <h2>How KidsCare Works</h2>
           <ol>
-            <li><strong>Easy Registration:</strong> Parents or healthcare providers can create an account, and each child's profile can be set up with the necessary medical details.</li>
-            <li><strong>Tracking Health Progress:</strong> Administrators and healthcare professionals can use the platform to track children's health progress, including vaccinations and checkups.</li>
-            <li><strong>Timely Notifications:</strong> The system sends timely reminders for upcoming vaccinations, ensuring no appointment is missed.</li>
+            <li><strong>Simple Onboarding:</strong> Quick account creation for parents and healthcare providers, with easy setup of child profiles.</li>
+            <li><strong>Continuous Monitoring:</strong> Real-time tracking of children's health progress, including vaccinations and regular check-ups.</li>
+            <li><strong>Proactive Care:</strong> Automated reminders for upcoming vaccinations and appointments to ensure timely healthcare interventions.</li>
           </ol>
         </div>
 
         <div className="benefits">
-          <h2>Benefits of KidsCare</h2>
+          <h2>The KidsCare Advantage</h2>
           <ul>
-            <li><strong>Improved Accuracy:</strong> Eliminates errors commonly found in paper-based systems.</li>
-            <li><strong>Enhanced Accessibility:</strong> Parents and healthcare providers can access records anytime, anywhere.</li>
-            <li><strong>Time-Saving:</strong> Automates processes like appointment scheduling and record updates.</li>
-            <li><strong>Data Security:</strong> All records are securely stored, adhering to the latest data privacy standards.</li>
+            <li><strong>Enhanced Accuracy:</strong> Eliminate errors common in traditional record-keeping systems.</li>
+            <li><strong>Seamless Accessibility:</strong> Access vital health information anytime, anywhere, ensuring continuity of care.</li>
+            <li><strong>Efficiency Boost:</strong> Streamline administrative tasks, freeing up more time for quality patient care.</li>
+            <li><strong>Robust Data Protection:</strong> State-of-the-art security measures to safeguard sensitive health information.</li>
           </ul>
         </div>
 
         <div className="who-benefits">
-          <h2>Who Can Benefit from KidsCare?</h2>
+          <h2>Who Thrives with KidsCare?</h2>
           <div className="benefit-grid">
             <div className="benefit-item">
               <h3>Healthcare Providers</h3>
-              <p>Hospitals, clinics, and pediatricians can streamline their workflows and improve service delivery.</p>
+              <p>Optimize workflows, enhance patient care, and improve overall service delivery in pediatric healthcare settings.</p>
             </div>
             <div className="benefit-item">
               <h3>Parents and Guardians</h3>
-              <p>Parents can track their child's health and vaccinations, ensuring they receive the best care.</p>
+              <p>Gain peace of mind with easy access to your child's complete health records and proactive care management.</p>
             </div>
             <div className="benefit-item">
-              <h3>Administrators</h3>
-              <p>Gain insights into health data trends and manage multiple profiles easily from one dashboard.</p>
+              <h3>Health Administrators</h3>
+              <p>Leverage data-driven insights for better resource allocation and policy-making in child healthcare.</p>
             </div>
           </div>
         </div>
@@ -78,7 +83,9 @@ export default function LearnMore() {
 
       <footer className="learn-more-footer">
         <p>&copy; 2024 KidsCare. All rights reserved.</p>
+        <a href="#" className="cta-button">Get Started <ArrowRight className="icon" /></a>
       </footer>
     </div>
   )
 }
+
