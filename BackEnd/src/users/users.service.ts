@@ -17,58 +17,14 @@ export class UsersService {
     //constructor(private readonly prisma: PrismaService) {}
     private prisma = new PrismaClient();
     private childProfileService: ChildProfileService;
-    private users=[
-        {
-            id: 1,
-            fullName: 'John Doe',
-            email: 'john.doe@example.com',
-            nicNo: '1234567890',
-            userType: 'DOCTOR',
-
-        },
-        {
-            id:2,
-            fullName:'james Anderson',
-            email:'Anderson@gmail.com',
-            nicNo:'243228233',
-            userType:'DOCTOR',
-        },
-        {
-            
-            id:3,
-            fullName:'Rohit Sharma',
-            email:'RohitSharma@gmail.com',
-            nicNo:'243228233',
-            userType:'PARENT',
-        }
-    ]
-    //Method for getting all users detaiils
-    /*Meth1:findAll(userType?: 'DOCTOR' | 'PARENT' ) {
-        if (userType) {
-            const AllusersArray=this.users.filter(user => user.userType === userType);
-            
-            if(AllusersArray.length===0) {
-                throw new NotFoundException('That user type is not found');
-            }
-            else{
-                return AllusersArray;
-            }
-        }
-        return this.users;
-    }*/
-
-        //second method to get all users :
+    
+   
+    // method to get all users details  :
         async findAll() {
             return this.prisma.user.findMany();
           }
 
-    //Method for getting one user detail
-    /*findOne(id:number){
-    const user = this.users.find(user => user.id === id);
-        if(!user) throw new NotFoundException("That user is not found");
-        return user;
-    }*/
-
+    
     //second attempt for getting one user
     async findOne(findUserDto: FindUserDto) {
         const user = await this.prisma.user.findFirst({
@@ -114,35 +70,7 @@ export class UsersService {
       where:{email}
     })
   }
-
-    
-    //Method for creating new user
-    /*async create(createUserDto: CreateUserDto) { 
-        // const {
-            
-        // } = createUserDto; 
-        await this.prisma.user.create({
-            data: {
-                fullName: 'test1',
-                nicNo: '1996234',
-                email: "unique2342",
-                contactNo: '071332525',
-                userType: 'DOCTOR',
-                password: 'test1',
-                userName: 'some username'
-            }
-            
-        })
-        const userByHighestId = [...this.users].sort((a, b) => b.id - a.id);
-        const newUser = {
-            id: userByHighestId[0].id + 1,
-            ...createUserDto
-        };
-        this.users.push(newUser);
-        return newUser;
-    }*/
-
-    //succesfull second attempt: have been created user APIs 
+    //method for creating a new user 
     async create(createUserDto: CreateUserDto) {
         try {
           // Check if user with the same userName already exists
@@ -165,75 +93,6 @@ export class UsersService {
         }
       }
       
-
-    //Method for updating an existing user
-    /*update(id: number, updateUserDto: UpdateUserDto) {
-        this.users = this.users.map(user => {
-            if (user.id === id) {
-                return { ...user, ...updateUserDto };
-            }
-            return user;
-        });
-        return this.findOne(id);
-    }
-
-    //Method to delete User 
-    delete(id: number) {
-        const removedUser = this.findOne(id);
-        this.users = this.users.filter(user => user.id !== id);
-        return removedUser;
-    }*/
-
-
-
-
-
-    /*async createUser(createUserDto: CreateUserDto) {
-        return await this.prisma.prismaClient.user.CreateUserDto({
-            data: {
-                fullName: name,
-                email,
-                nicNo,
-                userType,
-            },
-        });
-    }
-    //create user and there data 
-    /*async create(data:any){
-        return this.prisma.prismaClient.user.create({
-            data: data,
-        });
-    }*/
-    /*async create(createUserDto: CreateUserDto) {
-        return await this.prisma.prismaClient.user.create({
-            data: createUserDto,
-        });
-    }*/
-
-    //find all users
-    /*async findAll() {
-        return await this.prisma.user.findMany();
-    }
-    //find one user
-    async findOne(id: any) {
-        return await this.prisma.user.findUnique({
-            where: {
-                id: id,
-            },
-        });
-    }*/
-
-
-    //Update users data
-    /*async update(id: any, data: any) {
-        return this.prisma.prismaClient.user.update({
-            where: {
-                id: id,
-            },
-            data: data,
-        });
-
-    }*/
 
         //update one user method write here ...
         async update(updateUserDto: UpdateUserDto) {
@@ -259,12 +118,7 @@ export class UsersService {
         }
         
 
-    //remove users data     from the database collection 
-    /*async remove(id: any) {
-        return this.prisma.prismaClient.user.delete({
-            where: {
-                id: id,
-            },*/
+    
 
     //Delete one user method :
     async delete(deleteUserDto: DeleteUserDto) {

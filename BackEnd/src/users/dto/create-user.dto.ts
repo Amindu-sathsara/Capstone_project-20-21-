@@ -33,10 +33,3 @@ export class CreateUserDto{
 }
 
 
-// this is the front end form to create new user .....
-/*const [fullName, setFullName] = useState('');
-const [nicNo, setNicNo] = useState('');
-const [email, setEmail] = useState('');
-const [contactNo, setContactNo] = useState('');
-const [userType, setUserType] = useState('');
-const [errors, setErrors] = useState({});*/
