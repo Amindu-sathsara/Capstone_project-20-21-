@@ -214,6 +214,25 @@ async updateUserPassword(userName: string, newHashedPassword: string): Promise<v
     return childProfile;
   }
 
+
+  // service method to get DOCTOr childProfile data  with pagination limit
+  async getPaginatedChildProfiles(page: number, limit: number) {
+    const skip = (page - 1) * limit; // Calculate the offset
+    const total = await this.prisma.childProfile.count(); // Get the total count of profiles
+    const childProfiles = await this.prisma.childProfile.findMany({
+      skip,
+      take: limit,
+    });
+  
+    return {
+      total, // Total number of profiles
+      page, // Current page
+      limit, // Profiles per page
+      childProfiles, // Paginated profiles
+    };
+  }
+  
+
   
 
 }

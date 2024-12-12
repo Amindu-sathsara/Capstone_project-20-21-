@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body,Param, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException, Put,BadRequestException,NotFoundException } from '@nestjs/common';
+import { Controller, Post, Get, Body,Param, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException, Put,BadRequestException,NotFoundException ,Query} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -132,8 +132,36 @@ async getChildProfileById(@Param('childId') childId: string, @Request() req) {
     return this.userService.getChildProfileById(childId, parentNic);
 }
 
+// child profile access for doctors - only for the doctor type user
+/*@UseGuards(AuthGuard) 
+@Roles('DOCTOR')
+@Get('doctor-child-profile/:childId')
+async getDoctorChildProfileById(@Param('childId') childId: string, @Request() req) {
+  const parentNic = req.user.nicNo; // Extract `parentNic` from JWT payload
+  return this.userService.getChildProfileById(childId, parentNic);
 
-  
+}*/
+@UseGuards(AuthGuard, RolesGuard)
+@Roles('DOCTOR')
+@Get('doctor-child-profiles-paginated')
+async getDoctorChildProfilesWithPagination(
+  @Request() req,
+  @Query('page') page: number = 1, // Default to page 1
+  @Query('limit') limit: number = 5 // Default to 10 items per page
+) {
+  const userType = req.user.userType; // Extract userType from JWT payload
+
+  if (userType !== 'DOCTOR') {
+    throw new UnauthorizedException(
+      'You are not authorized to access this resource.'
+    );
+  }
+
+  // Call the service to fetch paginated results
+  return this.userService.getPaginatedChildProfiles(page, limit);
+}
+
+
 
   
 }
