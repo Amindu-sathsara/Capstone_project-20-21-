@@ -3,7 +3,7 @@ import { PrismaClient } from '@prisma/client';
 //import { CreateUserDto } from './../dto/user.dto';
 //import { InjectRepository } from '@nestjs/typeorm';
 //import { Repository } from 'typeorm';
-import { Injectable,NotFoundException } from '@nestjs/common';
+import { Injectable,NotFoundException,BadRequestException } from '@nestjs/common';
 //import { PrismaService } from 'src/prisma/prisma.service';
 import { ChildProfileService } from 'src/child-profile/child-profile.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -200,6 +200,20 @@ async updateUserPassword(userName: string, newHashedPassword: string): Promise<v
     return this.prisma.childProfile.findMany();
     
   }
+
+
+  //Latest changes  11/12/2024
+  async getChildProfileById(childId: string, parentNic: string) {
+    const childProfile = await this.prisma.childProfile.findFirst({
+      where: { id: childId, parentNic },
+    });
+
+    if (!childProfile) {
+      throw new NotFoundException('Child profile not found');
+    }
+    return childProfile;
+  }
+
   
 
 }

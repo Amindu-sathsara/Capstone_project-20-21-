@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException, Put } from '@nestjs/common';
+import { Controller, Post, Get, Body,Param, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException, Put,BadRequestException,NotFoundException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
@@ -121,6 +121,15 @@ async getDoctorChildProfiles(@Request() request) {
   }
 
   return this.userService.getAllChildProfiles(); // Call service method to fetch all child profiles
+}
+
+//latest changes 11/12/2024
+@UseGuards(AuthGuard)
+@Roles('PARENT')
+@Get('child-profile/:childId')
+async getChildProfileById(@Param('childId') childId: string, @Request() req) {
+    const parentNic = req.user.nicNo; // Extract `parentNic` from JWT payload
+    return this.userService.getChildProfileById(childId, parentNic);
 }
 
 
