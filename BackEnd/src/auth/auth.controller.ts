@@ -1,9 +1,10 @@
-import { Controller, Post, Get, Body,Param, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException, Put,BadRequestException,NotFoundException ,Query} from '@nestjs/common';
+import { Controller, Post, Get, Body,Param, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException, Put,BadRequestException,NotFoundException ,Query,Patch} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ChangeUserPasswordDto } from './dto/change-user-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { UpdateFieldsDto } from './dto/update-fields.dto';
 
 import { AuthGuard } from './guards/auth.guards';
 import { RolesGuard } from '../RBAC/guards/roles.guards';
@@ -133,14 +134,8 @@ async getChildProfileById(@Param('childId') childId: string, @Request() req) {
 }
 
 // child profile access for doctors - only for the doctor type user
-/*@UseGuards(AuthGuard) 
-@Roles('DOCTOR')
-@Get('doctor-child-profile/:childId')
-async getDoctorChildProfileById(@Param('childId') childId: string, @Request() req) {
-  const parentNic = req.user.nicNo; // Extract `parentNic` from JWT payload
-  return this.userService.getChildProfileById(childId, parentNic);
-
-}*/
+//According to DH guidelines I have do this - need to get review and after that just remove 
+//this two lines of comments after confirmation from DH ayya 
 @UseGuards(AuthGuard, RolesGuard)
 @Roles('DOCTOR')
 @Get('doctor-child-profiles-paginated')
@@ -160,6 +155,24 @@ async getDoctorChildProfilesWithPagination(
   // Call the service to fetch paginated results
   return this.userService.getPaginatedChildProfiles(page, limit);
 }
+
+ //From here onwards I just add endpoint that can access only for the DOCTOR and 
+ //they can modify or delete content of the child profiles and parent can't do it 
+
+ //Routh for updating the child profiles specific fields - This end point can be 
+ //add to serveral place beacuse this can work differently according to the request body 
+ //TO archive that I have created optional fields for DTO 
+
+ @UseGuards(AuthGuard, RolesGuard)
+ @Roles('DOCTOR')
+ @Patch('child-profile-fields/:childId')
+async appendOrUpdateChildProfileFields(
+  @Param('childId') childId: string,
+  @Body() updateFieldsDto: UpdateFieldsDto
+) {
+  return this.userService.updateChildProfileFields(childId, updateFieldsDto);
+}
+
 
 
 

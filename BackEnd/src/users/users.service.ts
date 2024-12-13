@@ -11,6 +11,7 @@ import {UpdateUserDto } from './dto/update-user.dto';
 import { FindUserDto } from './dto/find-user.dto';
 import { DeleteUserDto } from './dto/delete-user.dto';
 import { UserChildProfileDto } from 'src/auth/dto/user-child-profile.dto';
+import { UpdateFieldsDto } from 'src/auth/dto/update-fields.dto';
 
 @Injectable()
 export class UsersService {
@@ -231,6 +232,49 @@ async updateUserPassword(userName: string, newHashedPassword: string): Promise<v
       childProfiles, // Paginated profiles
     };
   }
+
+
+  //This service should be provided only for the DOCTOR type of users work futher with child  profile content 
+  async updateChildProfileFields(childId: string, updateFieldsDto: UpdateFieldsDto) {
+    // Fetch the existing child profile
+    const existingProfile = await this.prisma.childProfile.findUnique({
+      where: { id: childId },
+      select: {
+        alergies: true,
+        bornDiseases: true,
+        medicalRecords: true,
+        vaccinesGiven: true,
+        vaccinesToBeGiven: true,
+      },
+    });
+  
+    if (!existingProfile) {
+      throw new NotFoundException(`Child profile with ID ${childId} not found`);
+    }
+  
+    // Merge existing data with the new data
+    const updatedData = {
+      alergies: this.mergeContent(existingProfile.alergies, updateFieldsDto.alergies),
+      bornDiseases: this.mergeContent(existingProfile.bornDiseases, updateFieldsDto.bornDiseases),
+      medicalRecords: this.mergeContent(existingProfile.medicalRecords, updateFieldsDto.medicalRecords),
+      vaccinesGiven: this.mergeContent(existingProfile.vaccinesGiven, updateFieldsDto.vaccinesGiven),
+      vaccinesToBeGiven: this.mergeContent(existingProfile.vaccinesToBeGiven, updateFieldsDto.vaccinesToBeGiven),
+    };
+  
+    // Update the profile in the database
+    return this.prisma.childProfile.update({
+      where: { id: childId },
+      data: updatedData,
+    });
+  }
+  
+  // Helper method to merge content
+  private mergeContent(existing: string | null, newContent: string | null): string | null {
+    if (!existing) return newContent; // If no existing content, return the new content
+    if (!newContent) return existing; // If no new content, keep existing content
+    return `${existing}, ${newContent}`; // Append new content to existing content
+  }
+  
   
 
   
