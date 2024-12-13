@@ -1,10 +1,9 @@
-import { Controller, Post, Get, Body,Param, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException, Put,BadRequestException,NotFoundException ,Query,Patch} from '@nestjs/common';
+import { Controller, Post, Get, Body, HttpCode, HttpStatus, UseGuards, Request, UnauthorizedException, Put, Patch } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from 'src/users/users.service';
 import { LoginUserDto } from './dto/login-user.dto';
 import { ChangeUserPasswordDto } from './dto/change-user-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { UpdateFieldsDto } from './dto/update-fields.dto';
 
 import { AuthGuard } from './guards/auth.guards';
 import { RolesGuard } from '../RBAC/guards/roles.guards';
@@ -34,7 +33,7 @@ export class AuthController {
     //Protected end point for users to Change their password
     @UseGuards(AuthGuard, RolesGuard)
 @Roles('DOCTOR', 'PARENT')
-@Put('change-password') 
+@Patch('change-password') 
 async changePassword(@Body() changeUserPasswordDto: ChangeUserPasswordDto, @Request() req) {
   const changePassword = await this.authService.changePassword(
     req.user.userName, // Access user details correctly
@@ -124,57 +123,8 @@ async getDoctorChildProfiles(@Request() request) {
   return this.userService.getAllChildProfiles(); // Call service method to fetch all child profiles
 }
 
-//latest changes 11/12/2024
-@UseGuards(AuthGuard)
-@Roles('PARENT')
-@Get('child-profile/:childId')
-async getChildProfileById(@Param('childId') childId: string, @Request() req) {
-    const parentNic = req.user.nicNo; // Extract `parentNic` from JWT payload
-    return this.userService.getChildProfileById(childId, parentNic);
-}
 
-// child profile access for doctors - only for the doctor type user
-//According to DH guidelines I have do this - need to get review and after that just remove 
-//this two lines of comments after confirmation from DH ayya 
-@UseGuards(AuthGuard, RolesGuard)
-@Roles('DOCTOR')
-@Get('doctor-child-profiles-paginated')
-async getDoctorChildProfilesWithPagination(
-  @Request() req,
-  @Query('page') page: number = 1, // Default to page 1
-  @Query('limit') limit: number = 5 // Default to 10 items per page
-) {
-  const userType = req.user.userType; // Extract userType from JWT payload
-
-  if (userType !== 'DOCTOR') {
-    throw new UnauthorizedException(
-      'You are not authorized to access this resource.'
-    );
-  }
-
-  // Call the service to fetch paginated results
-  return this.userService.getPaginatedChildProfiles(page, limit);
-}
-
- //From here onwards I just add endpoint that can access only for the DOCTOR and 
- //they can modify or delete content of the child profiles and parent can't do it 
-
- //Routh for updating the child profiles specific fields - This end point can be 
- //add to serveral place beacuse this can work differently according to the request body 
- //TO archive that I have created optional fields for DTO 
-
- @UseGuards(AuthGuard, RolesGuard)
- @Roles('DOCTOR')
- @Patch('child-profile-fields/:childId')
-async appendOrUpdateChildProfileFields(
-  @Param('childId') childId: string,
-  @Body() updateFieldsDto: UpdateFieldsDto
-) {
-  return this.userService.updateChildProfileFields(childId, updateFieldsDto);
-}
-
-
-
+  
 
   
 }
