@@ -34,7 +34,7 @@ export class AuthController {
     //Protected end point for users to Change their password
     @UseGuards(AuthGuard, RolesGuard)
 @Roles('DOCTOR', 'PARENT')
-@Put('change-password') 
+@Patch('change-password') 
 async changePassword(@Body() changeUserPasswordDto: ChangeUserPasswordDto, @Request() req) {
   const changePassword = await this.authService.changePassword(
     req.user.userName, // Access user details correctly
