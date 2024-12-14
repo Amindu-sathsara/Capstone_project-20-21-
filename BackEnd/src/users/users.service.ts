@@ -215,6 +215,19 @@ async updateUserPassword(userName: string, newHashedPassword: string): Promise<v
     return childProfile;
   }
 
+  //User service method for Doctor't get further details of child profiles
+  async getDoctorChildProfileById(childId: string,) {
+    const childProfile=await this.prisma.childProfile.findFirst({
+      where:{id:childId}
+    });
+
+    if(!childProfile){
+      throw new NotFoundException('Child profile not found');
+    }
+
+    return childProfile;
+  }
+
 
   // service method to get DOCTOr childProfile data  with pagination limit
   async getPaginatedChildProfiles(page: number, limit: number) {

@@ -133,6 +133,16 @@ async getChildProfileById(@Param('childId') childId: string, @Request() req) {
     return this.userService.getChildProfileById(childId, parentNic);
 }
 
+//Route or endpoint for DOCTORS to get further details of specific child profile
+@UseGuards(AuthGuard)
+@Roles('DOCTOR')
+@Get('doctor-child-profile/:childId')
+async getDoctorChildProfileById(@Param('childId') childId: string, @Request() req) {
+  const nicNo= req.user.nicNo; // Extract `parentNic` from JWT payload , But here This is not usefull I am doing this only for debugging purpose 
+  console.log(nicNo);
+  return this.userService.getDoctorChildProfileById(childId);
+}
+
 // child profile access for doctors - only for the doctor type user
 //According to DH guidelines I have do this - need to get review and after that just remove 
 //this two lines of comments after confirmation from DH ayya 
