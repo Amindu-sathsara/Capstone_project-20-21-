@@ -139,7 +139,7 @@ async getChildProfileById(@Param('childId') childId: string, @Request() req) {
 @Get('doctor-child-profile/:childId')
 async getDoctorChildProfileById(@Param('childId') childId: string, @Request() req) {
   const nicNo= req.user.nicNo; // Extract `parentNic` from JWT payload , But here This is not usefull I am doing this only for debugging purpose 
-  console.log(nicNo);
+  console.log(nicNo)
   return this.userService.getDoctorChildProfileById(childId);
 }
 
