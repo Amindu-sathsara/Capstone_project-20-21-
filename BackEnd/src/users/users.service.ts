@@ -80,7 +80,8 @@ export class UsersService {
           });
       
           if (existingUser) {
-            throw new Error('User with this username already exists.');
+            //throw new Error('User with this username already exists.');
+            return "This user already exists";
           }
       
           // Create the new user if no duplicate is found
@@ -287,6 +288,55 @@ async updateUserPassword(userName: string, newHashedPassword: string): Promise<v
     if (!newContent) return existing; // If no new content, keep existing content
     return `${existing}, ${newContent}`; // Append new content to existing content
   }
+
+  //....................................................................................................................
+  //User service methods for update vaccineGiven and VaccineToBeGiven -Only authorized for Doctor 
+  async updateVaccineRecord(childId: string, vaccine: string) {
+    // There I just add logic for specific child from there ID -SO remeber top add CHild ID from front end requst body
+    const existingProfile = await this.prisma.childProfile.findUnique({
+      where: { id: childId },
+      select: {
+        vaccinesToBeGiven: true,
+        vaccinesGiven: true,
+      },
+    });
+  
+    if (!existingProfile) {
+      throw new NotFoundException(`Child profile with ID ${childId} not found`);
+    }
+    console.log(existingProfile);   // This is no need to work this logic this only for dev to ensure the existing childProfile data 
+
+    const { vaccinesToBeGiven, vaccinesGiven } = existingProfile;  //I juust destructure on the fly to easily use the data 
+
+  
+    // Split the vaccinesToBeGiven string into an array 
+    const vaccinesToBeGivenArray = vaccinesToBeGiven ? vaccinesToBeGiven.split(",") : [];
+    const vaccinesGivenArray = vaccinesGiven ? vaccinesGiven.split(",") : [];
+  
+    // Check if the vaccine exists in vaccinesToBeGiven
+    if (!vaccinesToBeGivenArray.includes(vaccine)) {
+      throw new BadRequestException(`Vaccine "${vaccine}" is not in the list of vaccines to be given.`);
+    }
+  
+    // Remove the vaccine from vaccinesToBeGiven and add it to vaccinesGiven
+    const updatedVaccinesToBeGivenArray = vaccinesToBeGivenArray.filter((v) => v !== vaccine);
+    const updatedVaccinesGivenArray = [...vaccinesGivenArray, vaccine];  //Here I just use spread operator
+  
+    // Convert back to comma-separated strings -So At the beginning and at the endof this logic 
+    //input strings at the middile convert into array of strings and now again convert into string
+    const updatedVaccinesToBeGiven = updatedVaccinesToBeGivenArray.join(",");
+    const updatedVaccinesGiven = updatedVaccinesGivenArray.join(",");
+  
+    
+    return this.prisma.childProfile.update({
+      where: { id: childId },
+      data: {
+        vaccinesToBeGiven: updatedVaccinesToBeGiven,
+        vaccinesGiven: updatedVaccinesGiven,
+      },
+    });
+  }
+  
   
   
 

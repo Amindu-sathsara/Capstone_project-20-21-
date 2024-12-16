@@ -185,6 +185,23 @@ async appendOrUpdateChildProfileFields(
 
 
 
+//According to the front end requirement -Now I have Another way to update
+//vaccine details by the doctor
+//If this route create any bugs It can resolve for by just removing this end point and relevant user service method 
+@UseGuards(AuthGuard, RolesGuard)
+@Roles('DOCTOR')
+@Patch('child-profile/:childId/vaccine')
+async updateVaccine(
+  @Param('childId') childId: string,
+  @Body('vaccine') vaccine: string,
+) {
+  return this.userService.updateVaccineRecord(childId, vaccine);
+}
+
+
+
+
+
 
   
 }
