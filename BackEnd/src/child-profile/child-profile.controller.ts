@@ -2,7 +2,7 @@
 
 
 
-import { Controller,Get,Post,Put,Delete,Body,ValidationPipe, Query } from '@nestjs/common';
+import { Controller,Get,Post,Put,Delete,Body,ValidationPipe, Query, Patch } from '@nestjs/common';
 
 
 import { ChildProfileService } from './child-profile.service';
@@ -20,13 +20,14 @@ export class ChildProfileController {
     @Get()
     async findAll() {
     const a=await this.childProfileService.findAll();
+    return a;
     }
 
     // 2.API Get request for a single childProfile data 
     @Get('findoneChild')
-    async findOne(@Body(ValidationPipe) findChildProfileDto: FindChildProfileDto):Promise<any> {
+    async findOne(@Query(ValidationPipe) findChildProfileDto: FindChildProfileDto):Promise<any> {
     const x=await this.childProfileService.findOne(findChildProfileDto);
-
+    return x;
     }
 
     // 3.API Post request to add a new childProfile
@@ -39,17 +40,18 @@ export class ChildProfileController {
 
     // 4.API Put request to update an existing childProfile data
 
-    @Put('updateChildProfile')
-    async update(@Query(ValidationPipe) updateChildProfileDto: UpdateChildProfileDto) {
+    @Patch('updateChildProfile')
+    async update(@Body(ValidationPipe) updateChildProfileDto: UpdateChildProfileDto) {
     const b=await this.childProfileService.update(updateChildProfileDto);
-
+    return b;
     }
 
 
     // 5.API Delete request to delete a childProfile data
     @Delete('deleteChildProfile')
-    async delete(@Query(ValidationPipe) deleteChildProfileDto: DeleteChildProfileDto) {
+    async delete(@Body(ValidationPipe) deleteChildProfileDto: DeleteChildProfileDto) {
     const c=await this.childProfileService.delete(deleteChildProfileDto);
+    return c;
   }
 
 }

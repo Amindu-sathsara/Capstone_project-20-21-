@@ -6,7 +6,8 @@ import {
      Body,
      Param,
      Delete,
-     Put,Query,ParseIntPipe,ValidationPipe } from '@nestjs/common';
+     Put,Query,ParseIntPipe,ValidationPipe, 
+     Patch} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import {UpdateUserDto} from './dto/update-user.dto';
@@ -26,7 +27,7 @@ export class UsersController {
 
     //End point for  get single user   => localhost:3000/users/findone (GET)
     @Get('findone')
-findOne(@Body(ValidationPipe) findUserDto: FindUserDto) {
+    findOne(@Query(ValidationPipe) findUserDto: FindUserDto) {
     return this.usersService.findOne(findUserDto);
 }
 
@@ -38,7 +39,7 @@ findOne(@Body(ValidationPipe) findUserDto: FindUserDto) {
 
 
     //update users with finding relavant user from userName and nicNo
-    @Put('updateuser')
+    @Patch('updateuser')
     update(@Body(ValidationPipe) updateUserDto: UpdateUserDto) {
     return this.usersService.update(updateUserDto);
     }
