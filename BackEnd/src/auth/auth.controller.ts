@@ -102,13 +102,22 @@ async resetPassword(
 
   //Get all the childprofile of particular parent 
 
-  @UseGuards(AuthGuard) // Protect this endpoint
+  /*@UseGuards(AuthGuard) // Protect this endpoint
   @Roles( 'PARENT')
   @Get('parent-child-profiles')
   async getUserChildProfiles(@Request() request) {
           const { nicNo } = request.user; // Assuming JWT payload contains nicNo
           return this.userService.getUserWithChildProfiles(nicNo);
         }
+  */
+        @UseGuards(AuthGuard, RolesGuard)
+        @Roles('PARENT')
+        @Get('parent-child-profiles')
+        async getUserChildProfiles(@Request() req) {
+            const parentNic = req.user.nicNo;
+            return this.userService.getUserChildProfiles(parentNic);
+        }
+        
   
   //Get all the child profile for doctor's - only for the doctor type user
   @UseGuards(AuthGuard) 

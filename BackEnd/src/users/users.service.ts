@@ -196,6 +196,19 @@ async updateUserPassword(userName: string, newHashedPassword: string): Promise<v
     }
   }
 
+  /*   ########################################################### */
+  async getUserChildProfiles(parentNic: string) {
+    const user = await this.prisma.user.findUnique({
+        where: { nicNo: parentNic },
+        include: { childProfiles: true },
+    });
+
+    if (!user) throw new NotFoundException('Parent not found');
+
+    return user.childProfiles;
+}
+
+
 
   //service method for get all the childprofile of Doctor
   async getAllChildProfiles() {
